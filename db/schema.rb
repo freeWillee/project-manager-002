@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2018_12_11_175352) do
 
   create_table "positions", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,17 +25,22 @@ ActiveRecord::Schema.define(version: 2018_12_11_175352) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "roles", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "position_id", null: false
+  create_table "roles", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "position_id"
+    t.string "name"
+    t.index ["position_id"], name: "index_roles_on_position_id"
+    t.index ["user_id"], name: "index_roles_on_user_id"
   end
 
-  create_table "tasks", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
+  create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.string "content"
     t.integer "percent_complete"
+    t.integer "user_id"
+    t.integer "project_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
