@@ -10,13 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_11_175352) do
-
-  create_table "positions", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2018_12_12_213248) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -26,11 +20,14 @@ ActiveRecord::Schema.define(version: 2018_12_11_175352) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "position_id"
     t.string "name"
-    t.index ["position_id"], name: "index_roles_on_position_id"
-    t.index ["user_id"], name: "index_roles_on_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "role_id", null: false
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -39,8 +36,6 @@ ActiveRecord::Schema.define(version: 2018_12_11_175352) do
     t.integer "percent_complete"
     t.integer "user_id"
     t.integer "project_id"
-    t.index ["project_id"], name: "index_tasks_on_project_id"
-    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
