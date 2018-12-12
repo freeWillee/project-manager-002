@@ -1,5 +1,6 @@
 class Admin::ProjectsController < ApplicationController
   def index
+    @projects = Project.all
   end
 
   def new
@@ -7,6 +8,9 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def create
+    @project = Project.create(project_params)
+
+    redirect_to admin_projects_path
   end
 
   def edit
@@ -16,5 +20,11 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def delete
+  end
+
+  private
+
+  def project_params
+    params.require(:project).permit(:name, :deadline)
   end
 end
