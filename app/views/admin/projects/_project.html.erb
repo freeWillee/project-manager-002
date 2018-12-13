@@ -1,1 +1,2 @@
 <li><%= link_to project.name, admin_project_path(project) %></li>
+<p>Deadline: <%= due_date project %> (<%= project.days_remaining %> days)</p>

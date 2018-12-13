@@ -10,7 +10,7 @@ class Admin::ProjectsController < ApplicationController
   def create
     @project = Project.create(project_params)
 
-    redirect_to admin_projects_path
+    redirect_to admin_project_path(@project)
   end
 
   def show
@@ -22,6 +22,10 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def update
+    @project = Project.find(params[:id])
+    @project.update(project_params)
+
+    redirect_to admin_project_path(@project)
   end
 
   def delete
