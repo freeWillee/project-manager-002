@@ -1,0 +1,9 @@
+<h1><%= @project.name %></h1>
+<h4>Users assigned to project: </h4>
+  <ol>
+    <%= render(@project.users) || "There are currently no users assigned to this project"%>
+  </ol>
+
+<!-- Show deadline -->
+<h4>Users assigned to project: </h4>
+<p><%= @project.deadline %></p>

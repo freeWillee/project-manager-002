@@ -1,12 +1,4 @@
-<div class="center">
   <h1>All Projects</h1>
-  <section class="info">
-    <div class="container">
-      <ul>
-        <% @projects.each do |project| %>
-          <li>Name: <%= project.name %></li>
-        <% end %>
-      </ul>
-    </div>
-  </section>
-</div>
+  <ol>
+    <%= render(@projects) || "There are no projects to show." %>
+  </ol>

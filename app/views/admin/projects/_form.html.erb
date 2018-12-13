@@ -1,0 +1,9 @@
+<%= form_for project, url: admin_projects_path, html:{class:"new_user", id: "new_user"} do |f| %>
+  <div class="form-group">
+    <%= f.label :name%><br>
+    <%= f.text_field :name, placeholder: "Enter project name", class:"form-control"%>
+  </div>
+  <%= f.label :deadline, "Project Deadline"%><br>
+  <%= f.date_field :deadline %><br><br>
+  <%= f.submit %><br>
+<% end %>

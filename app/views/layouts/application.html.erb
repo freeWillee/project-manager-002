@@ -9,7 +9,11 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+
   <body>
+
+
+  <!-- template for Navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -31,9 +35,17 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
+    <div class="center">
+      <section class="info">
+        <div class="container">
+        <%= yield %>
+        </div>
+      </section>
+    </div>
 
-    <%= yield %>
   </body>
+
+  <!-- Footer template -->
   <footer class="center">
 		<p>Research Resources:<br>
 			<a href="http://wikipedia.org">Wikipedia</a><br>
@@ -42,4 +54,5 @@
 		</p>
 		<p><a href="#">Logout</a></p>
 	</footer>
+
 </html>
