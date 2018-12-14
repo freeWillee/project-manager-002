@@ -10,3 +10,7 @@
 <!-- Show deadline -->
 <h4>Project Deliverable Deadline: </h4>
 <p><%= due_date @project %></p>
+
+<%= form_for @project, method: :delete do |f| %>
+  <%= f.submit "Delete project" %><br/>
+<% end %>

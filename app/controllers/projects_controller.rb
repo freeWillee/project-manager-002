@@ -28,7 +28,11 @@ class ProjectsController < ApplicationController
     redirect_to project_path(@project)
   end
 
-  def delete
+  def destroy
+    @project = Project.find(params[:id])
+    @project.destroy
+
+    redirect_to projects_path
   end
 
   private
