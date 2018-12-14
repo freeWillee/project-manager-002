@@ -1,4 +1,4 @@
-class Admin::ProjectsController < ApplicationController
+class ProjectsController < ApplicationController
   def index
     @projects = Project.all
   end
@@ -10,7 +10,7 @@ class Admin::ProjectsController < ApplicationController
   def create
     @project = Project.create(project_params)
 
-    redirect_to admin_project_path(@project)
+    redirect_to project_path(@project)
   end
 
   def show
@@ -25,7 +25,7 @@ class Admin::ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @project.update(project_params)
 
-    redirect_to admin_project_path(@project)
+    redirect_to project_path(@project)
   end
 
   def delete
