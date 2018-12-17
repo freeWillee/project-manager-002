@@ -23,7 +23,7 @@
           <a class="navbar-brand" href="<%= new_project_path %>">Create Project</a>
           <a class="navbar-brand" href="<%= projects_path %>">Show All Projects</a>
           <a class="navbar-brand" href="#">Create Task</a>
-          <a class="navbar-brand" href="#">Log out</a>
+          <%= link_to "Logout", logout_path, class: "navbar-brand" %>
         </div>
       </div>
     </div>

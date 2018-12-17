@@ -1,1 +1,7 @@
-<li>Username: <%= user.username %></li>
+<tr>
+  <td><%= user.username %></td>
+  <td><%= user.email %></td>
+  <td><%= link_to "Show", user_path(user) %></td>
+  <td><a href="mailto:<%= user.email %>">Email <%= user.username %></a></td>
+  <!-- <td><%#= link_to "Destroy", book, method: :delete, data: { confirm: "Are you sure?" } %></td> -->
+</tr>

@@ -1,5 +1,6 @@
 <h1><%= @project.name %></h1>
-<%= render partial: 'due_date', locals: {project: @project} %>
+
+<h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
 
 <!-- Show users assigned to project -->
 <h4>Users assigned to project: </h4>
