@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :new, :create, :edit, :update, :destroy, :show]
 
   #Users, nested tasks
-  resources :users, only: [:index, :show, :edit, :update, :destroy] do
+  resources :users, only: [:new, :index, :show, :edit, :update, :destroy, :create] do
     resources :projects, only: [:index, :show]
     resources :tasks, only: [:show, :edit, :update]
   end

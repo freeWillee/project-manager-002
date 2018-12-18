@@ -11,8 +11,9 @@
       <thead>
         <tr>
           <th>Username</th>
-          <th>Details</th>
           <th>Contact</th>
+          <th>Details</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +23,7 @@
   <% end %>
 
 <!-- Show deadline -->
-<h4>Project Deliverable Deadline: </h4>
+<h4>Project Deadline: </h4>
 <p><%= due_date @project %></p>
 
 <%= form_for @project, method: :delete do |f| %>

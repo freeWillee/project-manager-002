@@ -1,17 +1,23 @@
-<h1><%= @user.username %></h1>
+<h1>Welcome, <%= @user.username %>!</h1>
+<h3>Your Email: <a href="mailto: <%= @user.email %>"><%= @user.email %></a></h3>
+<br>
 
-<!-- Show users assigned to project -->
+<!-- Show project list-->
 <h4>Project List: </h4>
-<table>
-  <thead>
-    <tr>
-      <th>Project Name</th>
-      <th>Due Date</th>
-      <th>Details</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <p><%= render(@user.projects) || "There are no projects to show." %></p>
-  </tbody>
-</table>
+<% if @user.projects.empty? %>
+  <p>There are currently no projects to show</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Due Date</th>
+        <th>Details</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <p><%= render(@user.projects) || "There are no projects to show." %></p>
+    </tbody>
+  </table>
+<% end %>

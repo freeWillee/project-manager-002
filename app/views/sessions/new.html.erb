@@ -1,8 +1,6 @@
-<div class="info">
   <h1>LOGIN</h1>
   <%= form_tag(sessions_path) do %>
-    <%= text_field_tag :username, "",:placeholder => "Type in your username" %>
-    <%= password_field_tag :password, "", :class => "new-todo", :placeholder => "Type your password" %>
+    <p><%= text_field_tag :username, "",:placeholder => "Enter username" %></p>
+    <p><%= password_field_tag :password, "", :class => "new-todo", :placeholder => "Enter password" %></p>
     <%= submit_tag "Login"%>
   <% end %>
-</div>
