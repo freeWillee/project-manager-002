@@ -6,12 +6,9 @@ Rails.application.routes.draw do
 
   get '/logout' => "sessions#destroy"
 
-  scope '/admin' do
-    resources :projects, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :users, only: [:index]
-  end
+  resources :projects, only: [:index, :new, :create, :edit, :update, :destroy, :show]
 
-  resources :users, only: [:show, :edit, :update, :destroy] do
+  resources :users, only: [:index, :show, :edit, :update, :destroy] do
     resources :projects, only: [:index, :show]
     resources :tasks, only: [:show, :edit, :update]
   end

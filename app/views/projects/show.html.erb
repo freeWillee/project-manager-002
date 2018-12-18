@@ -4,9 +4,22 @@
 
 <!-- Show users assigned to project -->
 <h4>Users assigned to project: </h4>
-  <ol>
-    <%= render(@project.users) || "There are currently no users assigned to this project"%>
-  </ol>
+  <% if @project.users.empty? %>
+    <p>There are currently no users assigned to this project</p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Details</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <p><%= render(@project.users) %></p>
+      </tbody>
+    </table>
+  <% end %>
 
 <!-- Show deadline -->
 <h4>Project Deliverable Deadline: </h4>
