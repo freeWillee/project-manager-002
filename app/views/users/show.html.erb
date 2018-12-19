@@ -21,3 +21,23 @@
     </tbody>
   </table>
 <% end %>
+
+<!-- Show task list -->
+<h4>Tasks Assigned</h4>
+<% if @user.tasks.empty? %>
+  <p>There are currently no tasks assigned</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Project</th>
+        <th>Percent Complete</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <p><%= render partial: "tasks/task", collection: @user.tasks %></p>
+    </tbody>
+  </table>
+<% end %>

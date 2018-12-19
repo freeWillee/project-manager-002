@@ -3,7 +3,7 @@
 <h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
 
 <!-- Show users assigned to project -->
-<h4>Users assigned to project: </h4>
+<h4>Assigned Users: </h4>
   <% if @project.users.empty? %>
     <p>There are currently no users assigned to this project</p>
   <% else %>
@@ -13,6 +13,7 @@
           <th>Username</th>
           <th>Contact</th>
           <th>Details</th>
+          <th># of tasks assigned</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -21,6 +22,28 @@
       </tbody>
     </table>
   <% end %>
+
+<!-- Show tasks in project -->
+<h4>Project Tasks</h4>
+<% if @project.tasks.empty? %>
+  <p>There are currently no users assigned to this project</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Assignee</th>
+        <th>Percent Complete</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <p><%= render partial: "tasks/task", collection: @project.tasks %></p>
+    </tbody>
+  </table>
+
+<% end %>
+
 
 <!-- Show deadline -->
 <h4>Project Deadline: </h4>
