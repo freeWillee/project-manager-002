@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    if params[:user_id]
+      @tasks = User.find(params[:user_id]).tasks
+    else
+      @tasks = Task.all
+    end
   end
 
   def show
