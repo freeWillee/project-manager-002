@@ -1,0 +1,7 @@
+<tr>
+  <td><%= project.name %></td>
+  <td><%= nice_date_format project %></td>
+  <td><%= link_to "Show", project_path(project) %></td>
+  <td><%= link_to "Edit", edit_project_path(project) %></td>
+  <td><%= project.tasks.count %> - <%= link_to "View Tasks", "/users/#{user_id}/tasks" %></td>
+</tr>

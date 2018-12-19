@@ -50,7 +50,7 @@
 <p><%= due_date @project %></p>
 
 <!-- Add TASK -->
-<h4><%= link_to "Add task to project", new_project_task_path(@project) %></h4>
+<h4><%= link_to "Add task to project", new_task_path %></h4>
 
 <%= form_for @project, method: :delete do |f| %>
   <%= f.submit "Delete project" %><br/>
