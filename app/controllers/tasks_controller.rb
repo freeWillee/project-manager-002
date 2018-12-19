@@ -8,11 +8,12 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    @task = Task.new(project_id: params[:project_id])
   end
 
   def create
-    @task = Task.create(tasks_params)
+    raise params.inspect
+    @task = Task.create(task_params)
 
     redirect_to task_path(@task)
   end
@@ -23,7 +24,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.update(tasks_params)
+    @task.update(task_params)
 
     redirect_to task_path(@task)
   end
@@ -33,8 +34,8 @@ class TasksController < ApplicationController
 
   private
 
-  def tasks_params
-    params.require(:task).permit(:name)
+  def task_params
+    params.require(:task).permit(:title, :content, :percent_complete, :project_id, :user_id)
   end
 
 end
