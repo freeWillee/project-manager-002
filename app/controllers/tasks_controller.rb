@@ -1,4 +1,7 @@
 class TasksController < ApplicationController
+  before_action :authentication_required
+  helper_method :params
+
   def index
     if params[:user_id]
       @tasks = User.find(params[:user_id]).tasks
@@ -16,10 +19,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    raise params.inspect
     @task = Task.create(task_params)
 
-    redirect_to task_path(@task)
+    redirect_to project_path(@task.project)
   end
 
   def edit

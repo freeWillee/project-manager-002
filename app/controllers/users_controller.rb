@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :authentication_required
+  skip_before_action :authentication_required, only: [:new]
+
   def index
     @users = User.all
   end
@@ -19,11 +22,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:id])
     @user.update(user_params)
 
     redirect_to user_path(@user)
@@ -35,6 +38,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :admin)
   end
 end

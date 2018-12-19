@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_action :authentication_required
+  
   def index
     @projects = Project.all
   end
