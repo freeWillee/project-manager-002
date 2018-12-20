@@ -1,7 +1,7 @@
 <% if params[:user_id] %>
-  <h1><%= User.find(params[:user_id]).username %>'s tasks</h1>
+  <h1><%= User.find(params[:user_id]).username %>'s tasks | <%= link_to "Add task", new_user_task_path(User.find(params[:user_id])) %></h1>
 <% else %>
-  <h1>All Tasks</h1>
+  <h1>All Tasks | <%= link_to "Add task", new_task_path %></h1>
 <% end %>
 
 <% if @tasks.empty? %>

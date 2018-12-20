@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new(project_id: params[:project_id])
+    @task = Task.new(project_id: params[:project_id], user_id: params[:user_id])
   end
 
   def create
