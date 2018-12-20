@@ -1,6 +1,6 @@
-<h1>Welcome, <%= @user.username %>!</h1>
-<h3>Your Email: <a href="mailto: <%= @user.email %>"><%= @user.email %></a></h3>
-<h3>View all your tasks: <%= link_to "All Tasks", user_tasks_path(@user.id) %></h3>
+<h1><%= @user.username %>'s Profile</h1>
+<h3>Email: <a href="mailto: <%= @user.email %>"><%= @user.email %></a></h3>
+<h3>Show all tasks: <%= link_to "All Tasks", user_tasks_path(@user.id) %></h3>
 <br>
 
 <!-- Show project list-->

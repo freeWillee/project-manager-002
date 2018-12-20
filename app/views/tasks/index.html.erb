@@ -1,16 +1,24 @@
-<h1>All Tasks</h1>
+<% if params[:user_id] %>
+  <h1><%= User.find(params[:user_id]).username %>'s tasks</h1>
+<% else %>
+  <h1>All Tasks</h1>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Task Name</th>
-      <th>Percentage Complete</th>
-      <th>Project</th>
-      <th>Details</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <p><%= render(@tasks) || "There are no tasks to show." %></p>
-  </tbody>
-</table>
+<% if @tasks.empty? %>
+  <p>There are no tasks to show</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Task Name</th>
+        <th>Percentage Complete</th>
+        <th>Project</th>
+        <th>Details</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <p><%= render(@tasks) %></p>
+    </tbody>
+  </table>
+<% end %>

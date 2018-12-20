@@ -2,30 +2,8 @@
 
 <h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
 
-<!-- Show users assigned to project -->
-<h4>Assigned Users: </h4>
-  <% if @project.users.empty? %>
-    <p>There are currently no users assigned to this project</p>
-  <% else %>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Username</th>
-          <th>Contact</th>
-          <th>Details</th>
-          <th># of tasks assigned</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <p><%= render(@project.users.uniq) %></p>
-      </tbody>
-    </table>
-  <% end %>
-
 <!-- Show tasks in project -->
-<h4>Project Tasks - <%= @project.tasks.count %></h4>
+<h4>Project Tasks | <%= link_to "Add task", new_task_path %></h4>
 <% if @project.tasks.empty? %>
   <p>There are currently no users assigned to this project</p>
 <% else %>
@@ -57,13 +35,31 @@
 
 <% end %>
 
+<!-- Show users assigned to project -->
+<h4>Assigned Users:</h4>
+  <% if @project.users.empty? %>
+    <p>There are currently no users assigned to this project</p>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Contact</th>
+          <th>Details</th>
+          <th># of tasks assigned</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <p><%= render(@project.users.uniq) %></p>
+      </tbody>
+    </table>
+  <% end %>
 
 <!-- Show deadline -->
 <h4>Project Deadline: </h4>
-<p><%= due_date @project %></p>
-
-<!-- Add TASK -->
-<h4><%= link_to "Add task to project", new_task_path %></h4>
+<h5><%= due_date @project %></h5>
+<br>
 
 <%= form_for @project, method: :delete do |f| %>
   <%= f.submit "Delete project" %><br/>
