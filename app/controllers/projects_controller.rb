@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authentication_required
-  
+
   def index
     @projects = Project.all
   end
@@ -40,6 +40,6 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :deadline)
+    params.require(:project).permit(:name, :deadline, user_ids:[])
   end
 end

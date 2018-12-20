@@ -3,7 +3,11 @@
     <%= f.label :name%><br>
     <%= f.text_field :name, placeholder: "Enter project name", class:"form-control"%>
   </div>
-  <%= f.label :deadline, "Project Deadline"%><br>
+  <div class="form-group">
+    <%= f.label :user_ids, "Assign users:" %><br>
+    <%= f.collection_check_boxes :user_ids, User.all, :id, :username %>
+  </div>
+  <%= f.label :deadline, "Project Deadline" %><br>
   <%= f.date_field :deadline %><br><br>
   <%= f.submit %><br>
 <% end %>
