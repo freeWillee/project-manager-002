@@ -11,10 +11,12 @@
     <thead>
       <tr>
         <th>Task Name</th>
-        <th>Percentage Complete</th>
-        <th>Project</th>
-        <th>Details</th>
+        <% if !params[:user_id] %>
+          <th>Assignee</th>
+        <% end %>
+        <th>Percent Complete</th>
         <th>Action</th>
+        <th>Project</th>
       </tr>
     </thead>
     <tbody>

@@ -1,7 +1,7 @@
 <h1>Task: <%= @task.title %></h1>
 
-<h2>For project: <%= link_to @task.project.name, project_path(@task.project) %></h2>
-<h2>Assigned user: <%= @task.user.username %></h2>
+<h3>For project: <%= link_to @task.project.name, project_path(@task.project) %></h3>
+<h3>Assigned user: <%= @task.user.username %></h3>
 
 <h3>Task details:</h3>
 <p><%= @task.content %></p>
@@ -10,9 +10,9 @@
 <p><%= @task.percent_complete %>%</p>
 
 <!-- Edit TASK -->
-<h4><%= link_to "Edit task detail", edit_task_path(@task) %></h4>
+<h4></h4>
 
 <!-- Delete Task -->
 <%= form_for @task, method: :delete do |f| %>
-  <%= f.submit "Delete task" %><br/>
+  <%= f.submit "Delete task" %> | <%= link_to "Edit task", edit_task_path(@task) %><br/>
 <% end %>

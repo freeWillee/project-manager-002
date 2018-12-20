@@ -1,8 +1,11 @@
 
 <tr>
   <td><%= link_to task.title, task_path(task) %></td>
-  <td><%= task.user.username %> (<a href="
-    mailto: <%= task.user.email %>">email</a>)</td>
+  <% if !params[:user_id] %>
+    <td><%= task.user.username %> (<a href="
+      mailto: <%= task.user.email %>">email</a>)</td>
+  <% end %>
   <td><%= task.percent_complete %></td>
   <td><%= link_to "Edit", edit_task_path(task) %></td>
+  <td><%= link_to task.project.name, project_path(task.project) %></td>
 </tr>
