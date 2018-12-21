@@ -2,7 +2,11 @@ class ProjectsController < ApplicationController
   before_action :authentication_required
 
   def index
-    @projects = Project.all
+    if params[:user_id]
+      @projects = User.find(params[:user_id]).projects
+    else
+      @projects = Project.all
+    end
   end
 
   def new
@@ -24,7 +28,7 @@ class ProjectsController < ApplicationController
     else
       @tasks = @project.tasks.all
     end
-    
+
   end
 
   def edit
@@ -39,6 +43,8 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
+    @task = Task.find_by(project_id: @project.id)
+    @task.destroy
     @project.destroy
 
     redirect_to projects_path
