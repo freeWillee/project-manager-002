@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   def new
-    render :layout => "login"
+    if logged_in?
+      redirect_to user_path(current_user)
+    else
+      render :layout => "login"
+    end
   end
 
   def create
