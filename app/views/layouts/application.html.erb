@@ -18,9 +18,9 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="<%= user_path(current_user) %>">Dashboard</a>
-          <a class="navbar-brand" href="<%= projects_path %>">Show All Projects</a>
+          <a class="navbar-brand" href="<%= user_projects_path(current_user) %>">Your Projects</a>
           <a class="navbar-brand" href="<%= new_task_path %>">Create Task</a>
-          <a class="navbar-brand" href="<%= user_tasks_path(current_user) %>">Show Your Tasks</a>
+          <a class="navbar-brand" href="<%= user_tasks_path(current_user) %>">Your Tasks</a>
 
           <%= link_to "Logout", logout_path, class: "navbar-brand" %>
         </div>
