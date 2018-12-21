@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  root 'sessions#new'
+
   # New user
   get '/signup' => "users#new"
 
@@ -20,5 +22,6 @@ Rails.application.routes.draw do
   #Users, nested tasks
   resources :users, only: [:new, :index, :show, :edit, :update, :destroy, :create] do
     resources :tasks, only: [:index, :show, :new, :create]
+    resources :projects, only: [:index]
   end
 end
