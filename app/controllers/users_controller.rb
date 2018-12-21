@@ -4,10 +4,12 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    check_admin_status_for_layout
   end
 
   def show
     @user = User.find(params[:id])
+    check_admin_status_for_layout
   end
 
   def create
@@ -19,13 +21,12 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    if !logged_in?
-      render :layout => "login"
-    end
+    check_admin_status_for_layout
   end
 
   def edit
     @user = User.find(params[:id])
+    check_admin_status_for_layout
   end
 
   def update

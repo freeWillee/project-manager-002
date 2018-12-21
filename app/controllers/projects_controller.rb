@@ -7,10 +7,12 @@ class ProjectsController < ApplicationController
     else
       @projects = Project.all
     end
+    check_admin_status_for_layout
   end
 
   def new
     @project = Project.new
+    check_admin_status_for_layout
   end
 
   def create
@@ -28,11 +30,12 @@ class ProjectsController < ApplicationController
     else
       @tasks = @project.tasks.all
     end
-
+    check_admin_status_for_layout
   end
 
   def edit
     @project = Project.find(params[:id])
+    check_admin_status_for_layout
   end
 
   def update
