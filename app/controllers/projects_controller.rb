@@ -17,6 +17,14 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @users = @project.users
+
+    if !params[:filter_user_id].blank?
+      @tasks = Task.where(user_id: params[:filter_user_id], project_id: params[:id])
+    else
+      @tasks = @project.tasks.all
+    end
+    
   end
 
   def edit

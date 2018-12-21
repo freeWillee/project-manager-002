@@ -19,6 +19,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    if logged_in? && self.is_admin?
+      render :layout => "admin"
+    elsif !logged_in?
+      render :layout => "login"
+    end
   end
 
   def edit

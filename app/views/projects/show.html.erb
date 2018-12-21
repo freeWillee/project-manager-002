@@ -7,32 +7,28 @@
 <% if @project.tasks.empty? %>
   <p>There are currently no users assigned to this project</p>
 <% else %>
-  <% if !params[:filter_user_id].blank? %>
-    <% @project.tasks = Task.where(user_id: params[:filter_user_id], project_id: params[:id]) %>
-  <% end %>
-
 <!-- Filter control -->
-  <div>
-    <h5>Filter tasks:</h5>
-    <%= form_tag(project_path(@project), method: "get") do %>
-      <%= select_tag "filter_user_id", options_from_collection_for_select(User.all, "id", "username"), include_blank: true %>
-      <%= submit_tag "Filter" %>
-    <% end %>
-  </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Assignee</th>
-            <th>Percent Complete</th>
-            <th>Action</th>
-            <th>Project</th>
-          </tr>
-        </thead>
-        <tbody>
-          <p><%= render partial: "tasks/task", collection: @project.tasks %></p>
-        </tbody>
-      </table>
+      <h5>Filter tasks:</h5>
+      <%= form_tag(project_path(@project), method: "get") do %>
+        <%= select_tag "filter_user_id", options_from_collection_for_select(@users.uniq, "id", "username"), include_blank: true %>
+        <%= submit_tag "Filter" %>
+      <% end %>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Assignee</th>
+        <th>Percent Complete</th>
+        <th>Action</th>
+        <th>Project</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      <p><%= render partial: "tasks/task", collection: @tasks %></p>
+    </tbody>
+  </table>
 
 <% end %>
 
