@@ -7,17 +7,17 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all
     end
-    check_admin_status_for_layout
+    
   end
 
   def show
     @task = Task.find(params[:id])
-    check_admin_status_for_layout
+    
   end
 
   def new
     @task = Task.new(project_id: params[:project_id], user_id: params[:user_id])
-    check_admin_status_for_layout
+    
   end
 
   def create
@@ -28,7 +28,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
-    check_admin_status_for_layout
+    
   end
 
   def update

@@ -5,13 +5,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_admin_status_for_layout
-    @user = User.find(session[:user_id])
-    if @user.is_admin?
-      render :layout => "admin"
-    end
-  end
-
   def logged_in?
     !!current_user
   end
