@@ -1,12 +1,12 @@
 class Admin::ProjectsController < ApplicationController
-  before_action :authentication_required
+  before_action :authentication_as_admin_required
   layout "admin"
 
   def index
-    if params[:user_id]
-      @projects = User.find(params[:user_id]).projects
-    else
+    if current_user.is_admin?
       @projects = Project.all
+    else
+      redirect_to root_path
     end
   end
 
@@ -17,7 +17,7 @@ class Admin::ProjectsController < ApplicationController
   def create
     @project = Project.create(project_params)
 
-    redirect_to project_path(@project)
+    redirect_to admin_project_path(@project)
   end
 
   def show
@@ -38,7 +38,7 @@ class Admin::ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     @project.update(project_params)
-    redirect_to project_path(@project)
+    redirect_to admin_project_path(@project)
   end
 
   def destroy
@@ -46,7 +46,7 @@ class Admin::ProjectsController < ApplicationController
     @project.all_project_tasks.destroy_all
     @project.destroy
 
-    redirect_to projects_path
+    redirect_to admin_projects_path
   end
 
   private

@@ -1,8 +1,4 @@
-<% if params[:user_id] %>
-  <h1><%= User.find(params[:user_id]).username %>'s projects</h1>
-<% else %>
-  <h1>All Projects</h1>
-<% end %>
+<h1>All Projects</h1>
 
 <% if @projects.empty? %>
   <p>There are no projects to show</p>
@@ -13,9 +9,7 @@
         <th>Project Name</th>
         <th>Due Date</th>
         <th>Details</th>
-        <% if current_user.is_admin? %>
-          <th>Action</th>
-        <% end %>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>

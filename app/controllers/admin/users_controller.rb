@@ -1,5 +1,6 @@
-class UsersController < ApplicationController
-  before_action :authentication_required
+class Admin::UsersController < ApplicationController
+  before_action :authentication_as_admin_required
+  layout "admin"
 
   def index
     @users = User.all
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
     raise @user.inspect
     @user.save
 
-    redirect_to user_path(current_user)
+    redirect_to admin_user_path(current_user)
   end
 
   def new
@@ -34,7 +35,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
 
-    redirect_to user_path(@user)
+    redirect_to admin_user_path(@user)
   end
 
   def destroy
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
 
     @user.destroy
 
-    redirect_to projects_path
+    redirect_to admin_projects_path
   end
 
   private

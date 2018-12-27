@@ -1,0 +1,20 @@
+<h1>All Tasks | <%= link_to "Add a Task", new_admin_task_path %></h1> 
+
+<% if @tasks.empty? %>
+  <p>There are no tasks to show</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Task Name</th>
+        <th>Assignee</th>
+        <th>Percent Complete</th>
+        <th>Action</th>
+        <th>Project</th>
+      </tr>
+    </thead>
+    <tbody>
+      <p><%= render(@tasks) %></p>
+    </tbody>
+  </table>
+<% end %>

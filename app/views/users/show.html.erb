@@ -12,9 +12,3 @@
 <% else %>
   <%= render partial: 'projects/list', collection: {projects: @user.projects} %>
 <% end %>
-
-<% if current_user.is_admin? %>
-  <%= form_for @user, method: :delete do |f| %>
-    <%= f.submit "Delete user" %><br/>
-  <% end %>
-<% end %>

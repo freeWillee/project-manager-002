@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def new
     if logged_in?
       if current_user.is_admin?
-        # redirect to admin user page
+        redirect_to admin_projects_path
       else
         redirect_to user_path(current_user)
       end
@@ -13,12 +13,15 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(:username => params[:username])
-
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to user_path(user)
+      if user.is_admin?
+        redirect_to admin_projects_path
+      else
+        redirect_to user_path(user)
+      end
     else
-      render 'sessions/new'
+      redirect_to login_path
     end
   end
 

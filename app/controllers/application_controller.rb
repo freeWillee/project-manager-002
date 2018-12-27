@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authentication_as_admin_required
+    if !logged_in? || !current_user.is_admin?
+      redirect_to login_path
+    end
+  end
+
   def logged_in?
     !!current_user
   end
