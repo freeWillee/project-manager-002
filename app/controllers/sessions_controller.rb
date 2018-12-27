@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
   def new
     if logged_in?
-      redirect_to user_path(current_user)
+      if current_user.is_admin?
+        # redirect to admin user page
+      else
+        redirect_to user_path(current_user)
+      end
     else
       render :layout => "login"
     end

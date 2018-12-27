@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+<<<<<<< HEAD
   def check_admin_status_for_layout
     @admin = User.find(session[:user_id])
     if @admin.is_admin?
@@ -15,6 +16,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+=======
+>>>>>>> 661eb49ef71831a9083026f8fb989ccd60b05b7f
   def logged_in?
     !!current_user
   end
