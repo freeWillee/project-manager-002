@@ -1,4 +1,4 @@
-<h1>Your Dashboard</h1>
+<h1>Dashboard | <%= link_to "Edit profile", edit_user_path(@user) %>
 <h3>Username: <%= @user.username %></h3>
 <h3>Email: <a href="mailto: <%= @user.email %>"><%= @user.email %></a></h3>
 <h3>Todo:</h3>
@@ -10,16 +10,11 @@
 <% if @user.projects.empty? %>
   <p>There are currently no projects to show</p>
 <% else %>
-  <table>
-    <thead>
-      <tr>
-        <th>Project Name</th>
-        <th>Due Date</th>
-        <th>Details</th>
-      </tr>
-    </thead>
-    <tbody>
-      <p><%= render partial: "project", collection: @user.projects, locals: {user_id: @user.id} || "There are no projects to show." %></p>
-    </tbody>
-  </table>
+  <%= render partial: 'projects/list', collection: {projects: @user.projects} %>
+<% end %>
+
+<% if current_user.is_admin? %>
+  <%= form_for @user, method: :delete do |f| %>
+    <%= f.submit "Delete user" %><br/>
+  <% end %>
 <% end %>

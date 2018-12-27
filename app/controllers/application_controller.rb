@@ -6,8 +6,11 @@ class ApplicationController < ActionController::Base
   end
 
   def check_admin_status_for_layout
-    @user = User.find(session[:user_id])
-    if @user.is_admin?
+    @admin = User.find(session[:user_id])
+    if @admin.is_admin?
+      if params[:id] && User.find(params[:id])
+        @user = User.find(params[:id])
+      end
       render :layout => "admin"
     end
   end

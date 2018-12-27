@@ -14,6 +14,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
+    raise @user.inspect
     @user.save
 
     redirect_to user_path(current_user)
@@ -37,11 +39,24 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user = User.find(params[:id])
+    @user.all_user_tasks.destroy_all
+
+    @user.destroy
+
+    redirect_to projects_path
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :admin, project_ids:[])
+    params.require(:user).permit(
+      :username,
+      :email,
+      :password,
+      :admin,
+      project_ids:[],
+      projects_attributes:[:name, :deadline]
+    )
   end
 end

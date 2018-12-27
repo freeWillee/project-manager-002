@@ -24,4 +24,10 @@ Rails.application.routes.draw do
     resources :tasks, only: [:index, :show, :new, :create]
     resources :projects, only: [:index]
   end
+
+  namespace :admin do
+    resources :projects
+    resources :users
+    resources :tasks
+  end
 end

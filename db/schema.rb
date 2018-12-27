@@ -19,17 +19,6 @@ ActiveRecord::Schema.define(version: 2018_12_19_214854) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "role_id", null: false
-  end
-
   create_table "tasks", force: :cascade do |t|
     t.string "title", default: "Pending..."
     t.string "content"

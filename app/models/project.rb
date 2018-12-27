@@ -12,4 +12,8 @@ class Project < ApplicationRecord
     self.days_remaining / 7
   end
 
+  def all_project_tasks
+    Task.where("project_id = ?", self.id)
+  end
+
 end

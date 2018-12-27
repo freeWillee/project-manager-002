@@ -1,30 +1,43 @@
 <%= form_for user, html:{class:"new_user", id: "new_user"} do |f| %>
 
+<!-- Username -->
   <div class="form-group">
     <%= f.label :username%><br>
     <%= f.text_field :username, placeholder: "Enter username", class:"form-control"%>
   </div>
+<!-- Email -->
   <div class="form-group">
     <%= f.label :email%><br>
     <%= f.text_field :email, placeholder: "Enter email address", class:"form-control"%>
   </div>
+<!-- Password -->
   <div class="form-group">
     <%= f.label :password, "Enter password" %><br>
     <%= f.password_field :password, placeholder: "Enter password", class:"form-control"%>
-  </div>
-  <div class="form-group">
-    <h3>Select an existing project to assign to user:</h3>
-    <%= f.collection_check_boxes :project_ids, Project.all, :id, :name %>
-  </div
-  <div class="form-group">
-    <h3>New Project</h3>
-    <%= f.fields_for :projects, user.projects.build do |projects_fields| %>
-      <%= projects_fields.label :name, "Project name:" %>
-      <%= projects_fields.text_field :name %><br>
-      <%= projects_fields.label :deadline, "Project Deadline:" %>
-      <%= projects_fields.date_field :deadline %>
-    <% end %>
-  </div>
+
+<!-- Option for admin -->
+    <div class="form-group">
+      <h4>
+        <%= f.label :admin, "Check box to allow Admin Rights" %>
+        <%= f.check_box :admin %>
+      </h4>
+    </div>
+<!-- Select existing project -->
+    <div class="form-group">
+      <h3>Select an existing project to assign to user:</h3>
+      <%= f.collection_check_boxes :project_ids, Project.all, :id, :name %>
+    </div
+
+<!-- Or create a new project -->
+    <div class="form-group">
+      <h3>New Project</h3>
+      <%= f.fields_for :projects, user.projects.build do |projects_fields| %>
+        <%= projects_fields.label :name, "Project name:" %>
+        <%= projects_fields.text_field :name %><br>
+        <%= projects_fields.label :deadline, "Project Deadline:" %>
+        <%= projects_fields.date_field :deadline %>
+      <% end %>
+    </div>
 
   <%= f.submit %><br>
 <% end %>
