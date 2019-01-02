@@ -1,9 +1,17 @@
 class Project < ApplicationRecord
   has_many :tasks
   has_many :users, through: :tasks
+  
+  #validations
+  validates :name, presence: true
+  validate :deadline_not_in_the_past
+  
+  def deadline_not_in_the_past
+    errors.add(:deadline, "can't be in the past") if !:deadline.blank? || deadline < Date.today
+  end
 
   def days_remaining
-    today = DateTime.now
+    today = Date.today
     due_date = self.deadline.to_date
     (due_date - today).to_i
   end

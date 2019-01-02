@@ -1,7 +1,15 @@
 class User < ApplicationRecord
+  #associations
   has_many :tasks
   has_many :projects, through: :tasks
+  
+  #bcrypt
   has_secure_password
+
+  # validations
+  validates :username, presence: true
+  validates :username, uniqueness: true
+
   accepts_nested_attributes_for :projects
 
   def is_admin?
