@@ -20,9 +20,9 @@ users = User.create(
 
 projects = Project.create(
   [
-    {name: 'Build-a-Bear', deadline: DateTime.civil(2020, 12, 4)},
-    {name: 'Treehouse', deadline: DateTime.civil(2019, 2, 4)},
-    {name: 'Fly-A-Kite', deadline: DateTime.civil(2019, 3, 4)},
-    {name: 'Theo Birthday', deadline: DateTime.civil(2019, 5, 4)}
+    {name: 'Build-a-Bear', deadline: Date.new(2020, 12, 4)},
+    {name: 'Treehouse', deadline: Date.new(2019, 2, 4)},
+    {name: 'Fly-A-Kite', deadline: Date.new(2019, 3, 4)},
+    {name: 'Theo Birthday', deadline: Date.new(2019, 5, 4)}
   ]
 )
