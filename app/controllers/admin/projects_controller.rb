@@ -15,9 +15,14 @@ class Admin::ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.create(project_params)
-
-    redirect_to admin_project_path(@project)
+    @project = Project.new(project_params)
+    if !@project.save
+      flash.now[:error] = "Errors found: "
+      render :new
+    else
+      flash[:success] = "You have created a new project called #{@project.name}."
+      redirect_to admin_project_path(@project)
+    end
   end
 
   def show
