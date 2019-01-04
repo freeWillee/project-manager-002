@@ -58,6 +58,6 @@
 <br>
 
 <!-- Delete project -->
-<%= form_for @project, method: :delete do |f| %>
+<%= form_for @project, url: admin_project_path, method: :delete do |f| %>
   <%= f.submit "Delete project" %><br/>
 <% end %>
