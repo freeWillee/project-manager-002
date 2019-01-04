@@ -19,5 +19,13 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
+  def gather_errors
+    flash.now[:error] = "Errors found: "
+      flash.now[:messages] = []
+      @project.errors.full_messages.each do |message|
+        flash.now[:messages] << message
+      end
+  end
+
   helper_method :current_user
 end

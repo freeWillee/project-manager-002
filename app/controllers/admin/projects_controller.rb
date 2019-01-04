@@ -17,10 +17,12 @@ class Admin::ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if !@project.save
-      flash.now[:error] = "Errors found: "
+      gather_errors
+
       render :new
     else
-      flash[:success] = "You have created a new project called #{@project.name}."
+      flash[:success] = "You have successfully created a new project called #{@project.name}."
+
       redirect_to admin_project_path(@project)
     end
   end
@@ -42,8 +44,15 @@ class Admin::ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    @project.update(project_params)
-    redirect_to admin_project_path(@project)
+    if !@project.update(project_params)
+      gather_errors
+
+      render :edit
+    else
+      flash[:success] = "You have successfully edited the project."
+
+      redirect_to admin_project_path(@project)
+    end
   end
 
   def destroy
@@ -51,6 +60,7 @@ class Admin::ProjectsController < ApplicationController
     @project.all_project_tasks.destroy_all
     @project.destroy
 
+    flash[:success] = "You have successfully deleted the project, #{@project.name}."
     redirect_to admin_projects_path
   end
 

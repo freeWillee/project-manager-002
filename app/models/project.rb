@@ -4,10 +4,13 @@ class Project < ApplicationRecord
   
   #validations
   validates :name, presence: true
+  validates :deadline, presence: true
   validate :deadline_not_in_the_past
   
   def deadline_not_in_the_past
-    errors.add(:deadline, "can't be in the past") if !:deadline.blank? || deadline < Date.today
+    if !deadline.blank?
+      errors.add(:deadline, "can't be in the past") if deadline < Date.today
+    end
   end
 
   def days_remaining
