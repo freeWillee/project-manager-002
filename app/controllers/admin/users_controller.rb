@@ -14,7 +14,7 @@ class Admin::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
+    @user.projects << Project.find_by(name: "Unsorted")
     if !@user.save
       gather_errors(@user)
 

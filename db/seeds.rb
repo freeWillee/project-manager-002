@@ -20,9 +20,14 @@ users = User.create(
 
 projects = Project.create(
   [
+    {name: 'Unsorted', deadline: Date.new(9999, 1, 1)},
     {name: 'Build-a-Bear', deadline: Date.new(2020, 12, 4)},
     {name: 'Treehouse', deadline: Date.new(2019, 2, 4)},
     {name: 'Fly-A-Kite', deadline: Date.new(2019, 3, 4)},
     {name: 'Theo Birthday', deadline: Date.new(2019, 5, 4)}
   ]
 )
+
+users.each do |user|
+  user.projects << Project.find_by(name: "Unsorted")
+end

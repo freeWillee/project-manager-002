@@ -13,7 +13,7 @@
       <%= form_tag(project_path(@project), method: "get") do %>
         <%= select_tag "filter_user_id", options_from_collection_for_select(@users.uniq, "id", "username"), include_blank: true %>
         <%= submit_tag "Filter" %>
-      <% end %>
+      <% end %> <!-- END FILTER -->
   <table>
     <thead>
       <tr>
@@ -25,8 +25,6 @@
       </tr>
     </thead>
     <tbody>
-
-
       <p><%= render partial: "tasks/task", collection: @tasks %></p>
     </tbody>
   </table>
@@ -43,7 +41,7 @@
         <tr>
           <th>Username</th>
           <th>Contact</th>
-          <th># of tasks assigned</th>
+          <th>Total # of tasks assigned on all projects</th>
         </tr>
       </thead>
       <tbody>

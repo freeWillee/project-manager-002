@@ -6,8 +6,7 @@ class TasksController < ApplicationController
       @tasks = User.find(params[:user_id]).tasks
     else
       @tasks = Task.all
-    end
-    
+    end    
   end
 
   def show
@@ -16,14 +15,23 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new(project_id: params[:project_id], user_id: params[:user_id])
+    @task = Task.new(project_id: params[:project_id], user_id: current_user.id)
     
   end
 
   def create
     @task = Task.create(task_params)
+    @task.user_id = current_user.id
+    
+    if !@task.save
+      gather_errors(@task)
 
-    redirect_to project_path(@task.project)
+      render :new
+    else
+      flash[:success] = "You have successfully created a task titled, #{@task.title}."
+
+      redirect_to project_path(@task.project)
+    end
   end
 
   def edit
@@ -36,13 +44,6 @@ class TasksController < ApplicationController
     @task.update(task_params)
 
     redirect_to task_path(@task)
-  end
-
-  def destroy
-    @task = Task.find(params[:id])
-    @task.destroy
-
-    redirect_to user_path(current_user)
   end
 
   private

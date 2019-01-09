@@ -19,7 +19,15 @@ class Admin::TasksController < ApplicationController
   def create
     @task = Task.create(task_params)
 
-    redirect_to admin_project_path(@task.project)
+    if !@task.save
+      gather_errors(@task)
+
+      render :new
+    else
+      flash[:success] = "You have successfully created a task titled, #{@task.title}."
+
+      redirect_to admin_project_path(@task.project)
+    end
   end
 
   def edit

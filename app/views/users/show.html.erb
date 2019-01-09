@@ -10,5 +10,22 @@
 <% if @user.projects.empty? %>
   <p>There are currently no projects to show</p>
 <% else %>
-  <%= render partial: 'projects/list', collection: {projects: @user.projects} %>
+  <table>
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Due Date</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <p><% @user.projects.each do |project| %></p>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= nice_date_format project if project.name != "Unsorted" %></td>
+        <td><%= link_to "Show", project_path(project) %></td>
+      <% end %>
+      </tr>
+    </tbody>
+  </table>
 <% end %>

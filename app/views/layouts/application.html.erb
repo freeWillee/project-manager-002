@@ -18,9 +18,8 @@
       <div class="container">
         <div class="navbar-header">
           <%= link_to "Dashboard", user_path(current_user), class: "navbar-brand" %>
-          <%= link_to "Your Projects", user_projects_path(current_user), class: "navbar-brand" %>
+          <%= link_to "Your Tasks", user_tasks_path(current_user), class: "navbar-brand" %>          
           <%= link_to "Create Task", new_task_path, class: "navbar-brand" %>
-          <%= link_to "Your Tasks", user_tasks_path(current_user), class: "navbar-brand" %>
 
           <%= link_to "Logout", logout_path, class: "navbar-brand" %>
         </div>
