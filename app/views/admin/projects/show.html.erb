@@ -1,9 +1,9 @@
-<h1>Project: <%= @project.name %></h1>
+<h1>Project: <%= @project.name %> | <%= link_to "Edit Project", edit_admin_project_path(@project) %></h1>
 
 <h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
 
 <!-- Show tasks in project -->
-<h4>Project Tasks | <%= link_to "Add task", new_admin_task_path %></h4>
+<h4>Project Tasks</h4>
 
 <% if @project.tasks.empty? %>
   <p>There are currently no users assigned to this project</p>
@@ -32,7 +32,7 @@
 <% end %>
 
 <!-- Show users assigned to project -->
-<h4>Assigned Users | <%= link_to "Assign/Edit Users", edit_admin_project_path(@project) %></h4>
+<h4>Assigned Users</h4>
   <% if @project.users.empty? %>
     <p>There are currently no users assigned to this project</p>
   <% else %>
@@ -53,7 +53,7 @@
   <% end %>
 
 <!-- Show deadline -->
-<h4>Project Deadline | <%= link_to "Edit Deadline", edit_admin_project_path(@project) %></h4>
+<h4>Project Deadline</h4>
 <h5><%= due_date @project %></h5>
 <br>
 
