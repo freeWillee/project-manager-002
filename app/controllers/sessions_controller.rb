@@ -21,12 +21,15 @@ class SessionsController < ApplicationController
         redirect_to user_path(user)
       end
     else
+      flash[:message] = "Invalid username or password.  Please try again."
+
       redirect_to login_path
     end
   end
 
   def destroy
     reset_session
+    flash[:message] = "You have successfully logged out."
     redirect_to login_path
   end
 end
