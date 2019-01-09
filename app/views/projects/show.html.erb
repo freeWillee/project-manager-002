@@ -51,6 +51,8 @@
   <% end %>
 
 <!-- Show deadline -->
-<h4>Project Deadline</h4>
-<h5><%= due_date @project %></h5>
+<% if @project.name != "Unsorted" %>
+  <h4>Project Deadline</h4>
+  <h5><%= due_date @project %></h5>
+<% end %>
 <br>

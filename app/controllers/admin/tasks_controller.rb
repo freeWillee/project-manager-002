@@ -19,6 +19,8 @@ class Admin::TasksController < ApplicationController
   def create
     @task = Task.create(task_params)
 
+    # When creating tasks, need to ensure that it is added to the user's project if it already exists, otherwise add the project to user's project list.
+
     if !@task.save
       gather_errors(@task)
 
