@@ -12,8 +12,6 @@
   <%= render partial: '/admin/projects/list', locals:{user: @user} %>
 <% end %>
 
-<% if current_user.is_admin? %>
-  <%= form_for @user, method: :delete do |f| %>
-    <%= f.submit "Delete user" %><br/>
-  <% end %>
+<%= form_for @user, url: admin_user_path, method: :delete do |f| %>
+  <%= f.submit "Delete user" %><br/>
 <% end %>

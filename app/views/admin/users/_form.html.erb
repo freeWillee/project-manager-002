@@ -1,4 +1,4 @@
-<%= form_for user, html:{class:"new_user", id: "new_user"} do |f| %>
+<%= form_for user, url: path, html:{class:"new_user", id: "new_user"} do |f| %>
 
 <!-- Username -->
   <div class="form-group">
@@ -26,9 +26,11 @@
     <div class="form-group">
       <h3>Select an existing project to assign to user:</h3>
       <%= f.collection_check_boxes :project_ids, Project.all, :id, :name %>
-    </div
+    </div>
 
-<!-- Or create a new project -->
+<!-- WILL TRY TO ADD THIS FEATURE IN FUTURE
+
+Or create a new project 
     <div class="form-group">
       <h3>New Project</h3>
       <%= f.fields_for :projects, user.projects.build do |projects_fields| %>
@@ -38,6 +40,7 @@
         <%= projects_fields.date_field :deadline %>
       <% end %>
     </div>
+    -->
 
   <%= f.submit %><br>
 <% end %>

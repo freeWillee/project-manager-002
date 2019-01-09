@@ -9,6 +9,8 @@ class User < ApplicationRecord
   # validations
   validates :username, presence: true
   validates :username, uniqueness: true
+  validates :email, presence: true
+  validates :email, uniqueness: true
 
   accepts_nested_attributes_for :projects
 

@@ -14,7 +14,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    raise @user.inspect
     @user.save
 
     redirect_to user_path(current_user)

@@ -17,7 +17,7 @@ class Admin::ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if !@project.save
-      gather_errors
+      gather_errors(@project)
 
       render :new
     else
@@ -45,7 +45,7 @@ class Admin::ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     if !@project.update(project_params)
-      gather_errors
+      gather_errors(@project)
 
       render :edit
     else

@@ -15,10 +15,15 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    raise @user.inspect
-    @user.save
+    if !@user.save
+      gather_errors(@user)
 
-    redirect_to admin_user_path(current_user)
+      render :new
+    else
+      flash[:success] = "You have successfully created a new user, #{@user.username}."
+
+      redirect_to admin_users_path
+    end
   end
 
   def new
@@ -43,8 +48,9 @@ class Admin::UsersController < ApplicationController
     @user.all_user_tasks.destroy_all
 
     @user.destroy
-
-    redirect_to admin_projects_path
+    flash[:success] = "You have successfully deleted the user, #{@user.username}."
+    
+    redirect_to admin_users_path
   end
 
   private
