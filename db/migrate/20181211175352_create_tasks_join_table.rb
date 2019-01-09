@@ -1,7 +1,7 @@
 class CreateTasksJoinTable < ActiveRecord::Migration[5.2]
   def change
     create_table :tasks do |t|
-      t.string :title, default: "Pending..."
+      t.string :title
       t.string :content
       t.integer :percent_complete, default: 0
       t.integer :user_id

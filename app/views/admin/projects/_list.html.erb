@@ -14,7 +14,7 @@
       <p><% user.projects.each do |project| %></p>
       <tr>
         <td><%= project.name %></td>
-        <td><%= nice_date_format project %></td>
+        <td><%= nice_date_format project if project.name != "Unsorted" %></td>
         <td><%= link_to "Show", admin_project_path(project) %></td>
         <td><%= link_to "Edit", edit_admin_project_path(project) %></td>
       <% end %>

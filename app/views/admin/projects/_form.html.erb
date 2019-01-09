@@ -1,14 +1,22 @@
 <%= form_for project, url: path, html:{class:"new_user", id: "new_user"} do |f| %>
-  <div class="form-group">
-    <%= f.label :name%><br>
-    <%= f.text_field :name, placeholder: "Enter project name", class:"form-control"%>
-  </div>
+  <% if project.name != "Unsorted" %>
+    <div class="form-group">
+      <%= f.label :name%><br>
+      <%= f.text_field :name, placeholder: "Enter project name", class:"form-control"%>
+    </div>
+  <% end %>
+  
   <div class="form-group">
     <%= f.label :user_ids, "Assign users:" %><br>
     <%= f.collection_check_boxes :user_ids, User.all, :id, :username %>
   </div>
-  <%= f.label :deadline, "Project Deadline" %><br>
-  <%= f.date_field :deadline %><br><br>
+  
+  <% if project.name != "Unsorted" %>
+    <div class="form-group">
+      <%= f.label :deadline, "Project Deadline" %><br>
+      <%= f.date_field :deadline %><br><br>
+    </div>
+  <% end %>
   
   <%= f.submit %><br>
 <% end %>

@@ -1,6 +1,8 @@
 <h1>Project: <%= @project.name %> | <%= link_to "Edit Project", edit_admin_project_path(@project) %></h1>
 
-<h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
+<% if @project.name != "Unsorted" %>
+  <h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
+<% end %>
 
 <!-- Show tasks in project -->
 <h4>Project Tasks</h4>
@@ -53,11 +55,15 @@
   <% end %>
 
 <!-- Show deadline -->
-<h4>Project Deadline</h4>
-<h5><%= due_date @project %></h5>
+<% if @project.name != "Unsorted" %>
+  <h4>Project Deadline</h4>
+  <h5><%= due_date @project %></h5>
+<% end %>
 <br>
 
 <!-- Delete project -->
-<%= form_for @project, url: admin_project_path, method: :delete do |f| %>
-  <%= f.submit "Delete project" %><br/>
+<% if @project.name != "Unsorted" %>
+  <%= form_for @project, url: admin_project_path, method: :delete do |f| %>
+    <%= f.submit "Delete project" %><br/>
+  <% end %>
 <% end %>

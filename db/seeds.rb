@@ -28,6 +28,6 @@ projects = Project.create(
   ]
 )
 
-users.each do |user|
-  user.projects << Project.find_by(name: "Unsorted")
-end
+# users.each do |user|
+#   user.projects << Project.find_by(name: "Unsorted")
+# end
