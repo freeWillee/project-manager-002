@@ -15,13 +15,12 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new(project_id: params[:project_id], user_id: current_user.id)
+    @task = Task.new
     
   end
 
   def create
-    @task = Task.create(task_params)
-    @task.user_id = current_user.id
+    @task = Task.new(task_params)
     
     if !@task.save
       gather_errors(@task)

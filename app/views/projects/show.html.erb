@@ -1,6 +1,8 @@
 <h1>Project: <%= @project.name %></h1>
 
-<h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
+<% if @project.name != "Unsorted" %>
+  <h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
+<% end %>
 
 <!-- Show tasks in project -->
 <h4>Project Tasks</h4>
