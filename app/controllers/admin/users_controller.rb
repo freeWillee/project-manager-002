@@ -15,14 +15,14 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.projects << Project.find_by(name: "Unsorted")
-    if !@user.save
+    if @user.save
+      flash[:success] = "You have successfully created a new user, #{@user.username}."
+
+      redirect_to admin_users_path      
+    else
       gather_errors(@user)
 
       render :new
-    else
-      flash[:success] = "You have successfully created a new user, #{@user.username}."
-
-      redirect_to admin_users_path
     end
   end
 
@@ -45,7 +45,7 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.all_user_tasks.destroy_all
+    @user.tasks.destroy_all
 
     @user.destroy
     flash[:success] = "You have successfully deleted the user, #{@user.username}."

@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <p><% @user.projects.each do |project| %></p>
+      <p><% @user.projects.uniq.each do |project| %></p>
       <tr>
         <td><%= project.name %></td>
         <td><%= nice_date_format project if project.name != "Unsorted" %></td>
