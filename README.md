@@ -58,7 +58,7 @@ LOGOUT:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at <https://github.com/freeWillee/project-manager_001.> This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at <https://github.com/freeWillee/project-manager_001> This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 TO SUBMIT PULL REQUEST:
 1) Fork and clone the repo: git clone git@github.com:freeWillee/project-manager_001.git
