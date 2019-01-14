@@ -12,7 +12,7 @@
 <% else %>
 <!-- Filter control -->
       <h5>Filter tasks:</h5>
-      <%= form_tag(project_path(@project), method: "get") do %>
+      <%= form_tag(user_project_path(current_user, @project), method: "get") do %>
         <%= select_tag "filter_user_id", options_from_collection_for_select(@users.uniq, "id", "username"), include_blank: true %>
         <%= submit_tag "Filter" %>
       <% end %> <!-- END FILTER -->

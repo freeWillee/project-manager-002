@@ -23,7 +23,7 @@
       <tr>
         <td><%= project.name %></td>
         <td><%= nice_date_format project if project.name != "Unsorted" %></td>
-        <td><%= link_to "Show", project_path(project) %></td>
+        <td><%= link_to "Show", user_project_path(@user, project) %></td>
       <% end %>
       </tr>
     </tbody>

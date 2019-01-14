@@ -1,0 +1,17 @@
+<h1>Demo of Class Method</h1>
+<p>This page shows how the class method, .by_user works for the Task model</p>
+
+<h3>Example: </h3>
+<p>User ID(1) => <%= @user.username %></p> 
+<p>Project ID(1) => <%= @project.name %> </p>
+<p>METHOD CALL: Task.by_user(@user.id, @project.id)</p>
+
+When the above is called on the Task class the following is returned as an array:
+
+<p>Object: <%= Task.by_user(@user.id, @project.id) %></p>
+<p>Contents:</p>
+<ol>
+    <% Task.by_user(@user.id, @project.id).each do |task| %>
+        <li><%= task %>; Title attribute => <%= task.title %></li>
+    <% end %>
+</ol>

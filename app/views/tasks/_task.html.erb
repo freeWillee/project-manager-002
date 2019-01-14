@@ -1,5 +1,5 @@
 <tr>
-  <td><%= link_to task.title, task_path(task) %></td>
+  <td><%= link_to task.title, user_task_path(task.user,task) %></td>
   <% if !params[:user_id] %>
     <td><%= task.user.username %> (<a href="
       mailto: <%= task.user.email %>">email</a>)</td>
@@ -7,10 +7,10 @@
   <td><%= task.percent_complete %></td>
   <td>
     <% if task.user.username == current_user.username %>
-      <%= link_to "Edit", edit_task_path(task) %>
+      <%= link_to "Edit", edit_user_task_path(task.user, task) %>
     <% else %>
       Not assigned to you
     <% end %>
   </td>
-  <td><%= link_to task.project.name, project_path(task.project) %></td>
+  <td><%= link_to task.project.name, user_project_path(task.user, task.project) %></td>
 </tr>

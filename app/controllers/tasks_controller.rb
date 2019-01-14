@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :authentication_required
+  skip_before_action :authentication_required, only: [:tasks_by_user]
 
   def index
     if params[:user_id]
@@ -43,6 +44,15 @@ class TasksController < ApplicationController
     @task.update(task_params)
 
     redirect_to task_path(@task)
+  end
+
+  def tasks_by_user
+
+    @user = User.find(2)
+    @project = @user.projects.first
+
+    render :layout => false
+    
   end
 
   private
