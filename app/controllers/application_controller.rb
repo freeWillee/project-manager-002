@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   def authentication_as_admin_required
     if !logged_in? || !current_user.is_admin?
+      flash[:error] = "You must be logged in to view that page."
       redirect_to login_path
     end
   end

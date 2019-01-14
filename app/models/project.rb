@@ -27,4 +27,8 @@ class Project < ApplicationRecord
     Task.where("project_id = ?", self.id)
   end
 
+  def self.by_user(user_id)
+    
+  end
+
 end

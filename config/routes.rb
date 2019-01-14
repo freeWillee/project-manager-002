@@ -3,9 +3,6 @@ Rails.application.routes.draw do
 
   root 'sessions#new'
 
-  # New user
-  get '/signup' => "users#new"
-
   # Sessions
     #Facebook Omniauth login
   get '/auth/facebook/callback' => 'sessions#fblogin'
@@ -14,7 +11,7 @@ Rails.application.routes.draw do
   get '/logout' => "sessions#destroy"
 
   #Projects
-  resources :projects, only: [:index, :new, :show] do
+  resources :projects, only: [:show] do
     resources :tasks, only: [:new, :create, :edit, :update]
   end
 
@@ -22,7 +19,7 @@ Rails.application.routes.draw do
   resources :tasks, only: [:new, :create, :edit, :update, :show]
 
   #Users, nested tasks
-  resources :users, only: [:new, :index, :show, :edit, :update, :destroy, :create] do
+  resources :users, only: [:show, :edit, :update] do
     resources :tasks, only: [:index, :show]
     resources :projects, only: [:index, :show]
   end

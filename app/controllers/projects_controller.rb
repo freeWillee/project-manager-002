@@ -10,13 +10,18 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
-    @users = @project.users
+    if current_user.projects.include?(Project.find(params[:id]))
+      @project = Project.find(params[:id])
+      @users = @project.users
 
-    if !params[:filter_user_id].blank?
-      @tasks = Task.where(user_id: params[:filter_user_id], project_id: params[:id])
+      if !params[:filter_user_id].blank?
+        @tasks = Task.by_user(params[:filter_user_id], params[:id])
+      else
+        @tasks = @project.tasks.all
+      end
     else
-      @tasks = @project.tasks.all
+      flash[:error] = "You do not have permission to view that project"
+      redirect_to user_path(current_user)
     end
   end
 
