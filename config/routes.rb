@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   # test class method
   get '/tasks/show_tasks_by_user/'=> 'tasks#tasks_by_user'  
+  
+  #GET RID OF THIS LATER!!!!
+  get '/tasks/almost_done'=> 'tasks#almost_done'
 
   # Sessions
     #Facebook Omniauth login
@@ -20,7 +23,7 @@ Rails.application.routes.draw do
   resources :tasks, only: [:new, :create, :edit, :update, :show]
 
   #Users nested
-  resources :users, only: [:show, :edit, :update] do
+  resources :users, only: [:new, :create, :show, :edit, :update] do
     resources :tasks, only: [:new, :create, :index, :show, :edit, :update]
     resources :projects, only: [:show]
   end
