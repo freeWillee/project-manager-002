@@ -1,0 +1,7 @@
+
+<ol>
+<% @tasks.each do |task| %>
+    <li><p> Title: <%= task.title %></p></li>
+    <li><p> User: <%= task.user.username %></p></li>
+<% end %>
+</ol>
