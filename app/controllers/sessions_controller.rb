@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
         redirect_to user_path(current_user)
       end
     else
-      render :layout => "login"
+      render :"/sessions/new"
     end
   end
 

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  layout "user", except: [:new, :create]
   before_action :authentication_required
+  skip_before_action :authentication_required, only: [:new, :create]  
 
   def index
     @users = User.all
@@ -13,13 +15,21 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    @user.save
+    if @user.save
+      flash[:success] = "You have successfully created a new user, #{@user.username}."
+      session[:user_id] = @user.id
+      
+      redirect_to user_path(@user)      
+    else
+      gather_errors(@user)
 
-    redirect_to user_path(current_user)
+      render :"/users/new"
+    end
   end
 
   def new
     @user = User.new
+    render :layout => "application"
     
   end
 

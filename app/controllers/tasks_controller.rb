@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  layout "user"
   before_action :authentication_required
   skip_before_action :authentication_required, only: [:tasks_by_user]
 
@@ -52,6 +53,13 @@ class TasksController < ApplicationController
     @project = @user.projects.first
 
     render :layout => false
+    
+  end
+
+  def almost_done    
+    @tasks = Task.almost_done
+
+    render :almost_done
     
   end
 
