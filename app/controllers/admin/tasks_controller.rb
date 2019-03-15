@@ -3,7 +3,12 @@ class Admin::TasksController < ApplicationController
   layout "admin"
 
   def index
-      @tasks = Task.all
+    @tasks = Task.all
+    
+    respond_to do |f|
+      f.html {render :index}
+      f.json { render json: @tasks }
+    end
   end
 
   def show

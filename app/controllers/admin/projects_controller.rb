@@ -5,6 +5,12 @@ class Admin::ProjectsController < ApplicationController
   def index
     if current_user.is_admin?
       @projects = Project.all
+
+    respond_to do |f|
+      f.html {render :index}
+      f.json { render json: @projects, status: 200 }
+    end
+
     else
       redirect_to root_path
     end
