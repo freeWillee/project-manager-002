@@ -42,6 +42,12 @@ class Admin::ProjectsController < ApplicationController
     else
       @tasks = @project.tasks.all
     end
+
+    respond_to do |f|
+      f.html {render :show}
+      f.json { render json: @project, status: 200 }
+    end
+
   end
 
   def edit
@@ -58,6 +64,7 @@ class Admin::ProjectsController < ApplicationController
       flash[:success] = "You have successfully edited the project."
 
       redirect_to admin_project_path(@project)
+      # render json: @project, status: 200
     end
   end
 
@@ -68,6 +75,7 @@ class Admin::ProjectsController < ApplicationController
 
     flash[:success] = "You have successfully deleted the project, #{@project.name}."
     redirect_to admin_projects_path
+    # render json: { projectId: @project.id }
   end
 
   private
