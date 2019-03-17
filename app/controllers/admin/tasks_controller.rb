@@ -1,8 +1,10 @@
 class Admin::TasksController < ApplicationController
-  before_action :authentication_as_admin_required, :set_tasks
+  before_action :authentication_as_admin_required
   layout "admin"
 
   def index
+    set_tasks
+
     respond_to do |f|
       f.html {render :index}
       f.json { render json: @tasks }
@@ -59,8 +61,6 @@ class Admin::TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:title, :content, :percent_complete, :project_id, :user_id)
   end
-
-  private
 
   def set_tasks
     if !!params[:project_id]
