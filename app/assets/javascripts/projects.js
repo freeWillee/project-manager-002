@@ -59,7 +59,7 @@ Project.prototype.postHTML = function () {
 function taskTitleHTML(taskObj) {    
     let taskHTML = "<ul>"
     for (const task of taskObj) {
-        taskHTML += `<li><a href="/admin/projects/${task.id}">${task.title}</a></li>`
+        taskHTML += `<li><a href="/admin/tasks/${task.id}">${task.title}</a></li>`
     }
     taskHTML +="</ul>"
 
