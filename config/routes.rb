@@ -17,7 +17,10 @@ Rails.application.routes.draw do
   get '/logout' => "sessions#destroy"
 
   #Projects
-  resources :projects, only: [:show]
+  resources :projects, only: [:show] do 
+    resources :tasks, only: [:index]
+  end
+
 
   #Tasks
   resources :tasks, only: [:new, :create, :edit, :update, :show]
@@ -25,13 +28,15 @@ Rails.application.routes.draw do
   #Users nested
   resources :users, only: [:new, :create, :show, :edit, :update] do
     resources :tasks, only: [:new, :create, :index, :show, :edit, :update]
-    resources :projects, only: [:show]
+    resources :projects, only: [:show, :index]
   end
 
   # Admin tasks
   namespace :admin do
     resources :users
-    resources :projects
+    resources :projects do 
+      resources :tasks, only: [:index]
+    end
     resources :tasks
   end
 
