@@ -50,20 +50,25 @@ Project.prototype.postHTML = function () {
     return (`
         <div style="text-align: left;">
             <p><strong>Tasks:</strong></p>
-            ${taskTitleHTML(this.tasks)}
-            <p># of people: ${this.users.length}</p>
+            ${listHTML(this.tasks)}
+            <p><strong>Team:</strong>:</p>
+            ${listHTML(this.users)}
         </div>
     `)
 }
 
-function taskTitleHTML(taskObj) {    
-    let taskHTML = "<ul>"
-    for (const task of taskObj) {
-        taskHTML += `<li><a href="/admin/tasks/${task.id}">${task.title}</a></li>`
+function listHTML(objCollection) {
+    let listHTML = "<ul>"
+    for (const obj of objCollection) {
+        if (obj.constructor.name === "Task") {
+        listHTML += `<li><a href="/admin/tasks/${obj.id}">${obj.title}</a></li>`
+        } else if (obj.constructor.name === "User") {
+            listHTML += `<li><a href="/admin/users/${obj.id}">${obj.username}</a></li>`
+        }
     }
-    taskHTML +="</ul>"
+    listHTML +="</ul>"
 
-    return taskHTML
+    return listHTML
 }
 
 function projectContainerForId(projectId) {
