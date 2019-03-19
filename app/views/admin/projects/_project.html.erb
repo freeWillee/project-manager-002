@@ -6,7 +6,7 @@
   </td>
   <td><%= nice_date_format project if project.name != "Unsorted" %></td>
   <td>
-    <%= link_to "Go to Project", admin_project_path(project) %>
+    <%= link_to "Go to Project", admin_project_path(project) %><br>
+    <%= link_to "Edit", edit_admin_project_path(project) if project.name != "Unsorted" %>
   </td>
-  <td><%= link_to "Edit", edit_admin_project_path(project) if project.name != "Unsorted" %></td>
 </tr>
