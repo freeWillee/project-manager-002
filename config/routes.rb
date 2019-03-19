@@ -33,7 +33,10 @@ Rails.application.routes.draw do
 
   # Admin tasks
   namespace :admin do
-    resources :users
+    resources :users do 
+      resources :tasks, only: [:index]
+      resources :projects, only: [:index]
+    end
     resources :projects do 
       resources :tasks, only: [:index]
     end
