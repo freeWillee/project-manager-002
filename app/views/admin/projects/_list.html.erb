@@ -6,19 +6,22 @@
       <tr>
         <th>Project Name</th>
         <th>Due Date</th>
-        <th>Details</th>
         <th>Action</th>
       </tr>
     </thead>
-    <tbody>
-      <p><% user.projects.each do |project| %></p>
-      <tr>
-        <td><%= project.name %></td>
-        <td><%= nice_date_format project if project.name != "Unsorted" %></td>
-        <td><%= link_to "Show", admin_project_path(project) %></td>
-        <td><%= link_to "Edit", edit_admin_project_path(project) %></td>
-      <% end %>
-      </tr>
+    <tbody id="project-list-table">
+      <!-- ALL TO JS 
+        <p><% user.projects.each do |project| %></p>
+        <tr>
+          <td><%= project.name %></td>
+          <td><%= nice_date_format project if project.name != "Unsorted" %></td>
+          <td>
+            <%= link_to "Go to project", admin_project_path(project) %><br>
+            <%= link_to "Edit project", edit_admin_project_path(project) %>
+          </td>
+        <% end %>
+        </tr>
+      -->
     </tbody>
   </table>
   <br>
