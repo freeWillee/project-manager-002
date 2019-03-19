@@ -1,9 +1,8 @@
 <tr>
   <td>
-    <a href="#" class="js-overview" data-id="<%= project.id %>"><%= project.name %></a>
-    <div id="project-overview-container-<%= project.id %>">
-
-    </div>
+    <%= project.name %><br>
+    <a href="#" class="js-more" data-id="<%= project.id %>">Show More</a>
+    <div class="project-data" data-id="<%= project.id %>"></div>
   </td>
   <td><%= nice_date_format project if project.name != "Unsorted" %></td>
   <td>
