@@ -9,9 +9,9 @@
   <h4><%= @user.tasks.count %> task(s) outstanding</h4>
   <br>
 --> 
-<div id="project-container">
-  <p><button type="button">Show Projects</button></p>
+<p><button type="button" id="show-user-projects" user-id="<%=@user.id%>">Show Projects</button></p>
 
+<div id="project-container">
   <!-- Show project list-->
   <h4>Project List: </h4>
   <% if @user.projects.empty? %>
