@@ -10,6 +10,10 @@ html {
     -webkit-text-size-adjust: 100%
 }
 
+#user-project-index {
+    text-align: left;
+}
+
 footer {
   margin-top: 50px;
 }
