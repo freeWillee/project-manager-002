@@ -3,22 +3,10 @@
   <h3>Email: <a href="mailto: <%= @user.email %>"><%= @user.email %></a> | <%= link_to "Edit", edit_admin_user_path %></h3>
 </div>
 
-<!-- refactored
-
-  <h3>Todo:</h3>
-  <h4><%= @user.tasks.count %> task(s) outstanding</h4>
-  <br>
---> 
-<p><button type="button" id="show-user-projects" user-id="<%=@user.id%>">Show Projects</button></p>
+<p><button type="button" id="show-user-projects-btn" user-id="<%=@user.id%>">Show Projects</button></p>
 
 <div id="project-container">
-  <!-- Show project list-->
-  <h4>Project List: </h4>
-  <% if @user.projects.empty? %>
-    <p>There are currently no projects to show</p>
-  <% else %>
-    <%= render partial: '/admin/projects/list', locals:{user: @user} %>
-  <% end %>
+  <div id='user-project-index'></div>
 </div>
 
 <div id="delete-user">
