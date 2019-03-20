@@ -1,6 +1,6 @@
 $(function(){
-    el = $("#show-user-projects")
-    listenForButtonPress(el);
+    button = $("#show-user-projects-btn")
+    listenForButtonPress(button);
 })
 
 function listenForButtonPress(el) {
@@ -8,8 +8,14 @@ function listenForButtonPress(el) {
     el.on('click', function(event){
         const userId = parseInt(this.getAttribute("user-id"))
         
-        event.preventDefault();                
-        getUserProjects(userId)
+        event.preventDefault();
+        if ($('#user-project-index').text()!=="") {
+            $('#user-project-index').html("")             
+            $('#show-user-projects-btn').text("Show Projects")
+        } else {
+            getUserProjects(userId)
+            $('#show-user-projects-btn').text("Hide Projects")
+        }
     })
 }
 class User {
@@ -31,8 +37,12 @@ function getUserProjects(userId) {
         baseUrl,
         function(data) {
             jsUser = new User(data)
-            let userProjectsHTML = jsUser.getHTML()
-            $('#project-list-table').html(userProjectsHTML)
+            if(jsUser.projects.length === 0) {
+                $('#user-project-index').html("<p>There are no projects to show</p>")
+            } else {
+                let userProjectsHTML = jsUser.getHTML()
+                $('#user-project-index').html(userProjectsHTML)
+            }
         }, 'json'
     )
     .fail(function(error) {
@@ -41,16 +51,14 @@ function getUserProjects(userId) {
 }
 
 User.prototype.getHTML = function () {
-    let tableRows = ""
-
+    let projectListHTML = "<h3>Project List</h3><br>"
     for (const project of this.projects) {
-        tableRows += `
-                    <tr>
-                        <td>${project.name}</td>
-                        <td>${project.deadline}</td>
-                        <td><a href="/admin/users/${this.id}/projects/${project.id}">Open Project</a></td>
-                    </tr>
-                    `
+        projectListHTML += 
+            `
+            <h5>${project.name}</h5>
+            <p>Deadline: ${project.deadline}</p>
+            <p><a href="#" data-id="${this.id}">Show Tasks</a></p><br>
+            `
     }
-    return tableRows
+    return projectListHTML
 }
