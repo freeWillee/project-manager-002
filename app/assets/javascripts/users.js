@@ -55,7 +55,7 @@ User.prototype.getHTML = function () {
     for (const project of this.projects) {
         projectListHTML += 
             `
-            <h5>${project.name}</h5>
+            <h5><a href="/admin/users/${this.id}/projects/${project.id}">${project.name}</a></h5>
             <p>Deadline: ${project.deadline}</p>
             <p><a href="#" data-id="${this.id}">Show Tasks</a></p><br>
             `
