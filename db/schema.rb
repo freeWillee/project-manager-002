@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2018_12_19_214854) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string "title", default: "Pending..."
+    t.string "title"
     t.string "content"
     t.integer "percent_complete", default: 0
     t.integer "user_id"
