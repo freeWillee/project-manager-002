@@ -20,8 +20,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
+    binding.pry
     @user = User.new(user_params)
-    @user.projects << Project.find_by(name: "Unsorted")
     if @user.save
       flash[:success] = "You have successfully created a new user, #{@user.username}."
 

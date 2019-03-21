@@ -1,9 +1,9 @@
 $(function() {
     // document ready
-    listenForClick()
+    listenForMoreClick()
 });
 
-function listenForClick() {
+function listenForMoreClick() {
     $(".js-more").each(function(num, el) {
         $(el).on('click', function(event){
             event.preventDefault();

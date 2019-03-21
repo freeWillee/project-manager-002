@@ -4,9 +4,9 @@
     <a href="#" class="js-more" data-id="<%= project.id %>">Show More</a>
     <div class="project-data" data-id="<%= project.id %>"></div>
   </td>
-  <td><%= nice_date_format project if project.name != "Unsorted" %></td>
+  <td><%= nice_date_format project %></td>
   <td>
     <%= link_to "Go to Project", admin_project_path(project) %><br>
-    <%= link_to "Edit", edit_admin_project_path(project) if project.name != "Unsorted" %>
+    <%= link_to "Edit", edit_admin_project_path(project) %>
   </td>
 </tr>

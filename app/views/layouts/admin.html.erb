@@ -19,7 +19,9 @@
           <%= link_to "Projects Dashboard", admin_projects_path, class: "navbar-brand" %>
           <%= link_to "All Users", admin_users_path, class: "navbar-brand" %>
           <%= link_to "All Tasks", admin_tasks_path, class: "navbar-brand" %>          
-          <%= link_to "Create Task", new_admin_task_path, class: "navbar-brand" %>
+          <% if !Project.all.empty? %>
+            <%= link_to "Create Task", new_admin_task_path, class: "navbar-brand" %>
+          <% end %>
           <%= link_to "Create User", new_admin_user_path, class: "navbar-brand" %>
           <%= link_to "Create Project", new_admin_project_path, class: "navbar-brand" %> 
           <%= link_to "Logout", logout_path, class: "navbar-brand" %>

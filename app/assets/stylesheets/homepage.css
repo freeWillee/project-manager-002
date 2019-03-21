@@ -14,6 +14,17 @@ html {
     text-align: left;
 }
 
+.project-summary-show, .project-tasks-show, .project-users-show {
+    text-align: left;
+    border-bottom: solid black 1px;
+    padding-bottom: 30px;
+}
+
+.delete-button {
+    margin-top: 30px;
+    text-align: left;
+}
+
 footer {
   margin-top: 50px;
 }

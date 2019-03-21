@@ -1,69 +1,69 @@
-<h1>Project: <%= @project.name %> | <%= link_to "Edit Project", edit_admin_project_path(@project) %></h1>
+<div id="js-previous-project">
+  <a href="" data-id=" id="js-previous-project"<%= @project.id %>"><< Previous Project</a>
+</div>
+<div id="js-next-project">
+  <a href="" data-id="<%= @project.id %>">Next Project >> </a>
+</div>
+<div class="project-summary-show">
+  <h3>Project Name: <%= @project.name %></h3> 
+  <h4><%= link_to "Edit Project", edit_admin_project_path(@project) %></h4>
+  <h3>Deadline: <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3>
+</div>
 
-<% if @project.name != "Unsorted" %>
-  <h3>This project is due in <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3><br>
-<% end %>
-
-<!-- Show tasks in project -->
-<h4>Project Tasks</h4>
-
-<% if @project.tasks.empty? %>
-  <p>There are currently no users assigned to this project</p>
-<% else %>
-<!-- Filter control -->
-      <h5>Filter tasks:</h5>
-      <%= form_tag(admin_project_path(@project), method: "get") do %>
-        <%= select_tag "filter_user_id", options_from_collection_for_select(@users.uniq, "id", "username"), include_blank: true %>
-        <%= submit_tag "Filter" %>
-      <% end %>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Assignee</th>
-        <th>Percent Complete</th>
-        <th>Action</th>
-        <th>Project</th>
-      </tr>
-    </thead>
-    <tbody>
-      <p><%= render partial: "admin/tasks/task", collection: @tasks %></p>
-    </tbody>
-  </table>
-
-<% end %>
-
-<!-- Show users assigned to project -->
-<h4>Assigned Users</h4>
-  <% if @project.users.empty? %>
+<div class="project-tasks-show">
+  <h3>Project Tasks</h3>
+  <% if @project.tasks.empty? %>
     <p>There are currently no users assigned to this project</p>
   <% else %>
+    <!-- Filter control -->
+    <h5>Filter tasks by users:</h5>
+    <%= form_tag(admin_project_path(@project), method: "get") do %>
+      <%= select_tag "filter_user_id", options_from_collection_for_select(@users.uniq, "id", "username"), include_blank: true %>
+      <%= submit_tag "Filter" %>
+    <% end %>
+      <!-- table -->
     <table>
       <thead>
         <tr>
-          <th>Username</th>
-          <th>Contact</th>
-          <th># of tasks assigned</th>
-          <th>Details</th>
+          <th>Title</th>
+          <th>Assignee</th>
+          <th>Percent Complete</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <p><%= render(@project.users.uniq) %></p>
+        <p><%= render partial: "admin/tasks/task", collection: @tasks %></p>
       </tbody>
     </table>
   <% end %>
+</div>
 
-<!-- Show deadline -->
-<% if @project.name != "Unsorted" %>
-  <h4>Project Deadline</h4>
-  <h5><%= due_date @project %></h5>
-<% end %>
-<br>
+<div class="project-users-show">
+<!-- Show users assigned to project -->
+  <h3>Assigned Users</h3>
+    <% if @project.users.empty? %>
+      <p>There are currently no users assigned to this project</p>
+    <% else %>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Contact</th>
+            <th># of tasks assigned</th>
+            <th>Details</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <p><%= render(@project.users.uniq) %></p>
+        </tbody>
+      </table>
+    <% end %>
+</div>
 
 <!-- Delete project -->
-<% if @project.name != "Unsorted" %>
+<div class="delete-button">
   <%= form_for @project, url: admin_project_path, method: :delete do |f| %>
     <%= f.submit "Delete project" %><br/>
   <% end %>
-<% end %>
+</div>
