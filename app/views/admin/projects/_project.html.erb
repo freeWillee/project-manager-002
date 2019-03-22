@@ -1,9 +1,5 @@
 <tr>
-  <td>
-    <%= project.name %><br>
-    <a href="#" class="js-more" data-id="<%= project.id %>">Show More</a>
-    <div class="project-data" data-id="<%= project.id %>"></div>
-  </td>
+  <td><%= project.name %></td>
   <td><%= nice_date_format project %></td>
   <td>
     <%= link_to "Go to Project", admin_project_path(project) %><br>
