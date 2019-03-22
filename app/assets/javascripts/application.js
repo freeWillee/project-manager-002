@@ -13,6 +13,4 @@
 //= require jquery3
 //= require jquery_ujs
 //= require activestorage
-//= require projects
-//= require tasks
-//= require users
+//= require_tree .
