@@ -1,15 +1,22 @@
-<div id="page-header">
-  <h3>Username: <%= @user.username %> | <%= link_to "Edit", edit_admin_user_path %></h3>
-  <h3>Email: <a href="mailto: <%= @user.email %>"><%= @user.email %></a> | <%= link_to "Edit", edit_admin_user_path %></h3>
+<div id="js-previous-user">
+  <a href="" data-id=" id="js-previous-user"<%= @user.id %>"><< Previous User</a>
+</div>
+<div id="js-next-user">
+  <a href="" data-id=" id="js-previous-user"<%= @user.id %>">Next User >></a>
 </div>
 
-<p><button type="button" id="show-user-projects-btn" user-id="<%=@user.id%>">Show Projects</button></p>
+<div class="section-container">
+  <h2>Profile Page</h2>
+  <h3>Username: <%= @user.username %> | <%= link_to "Edit", edit_admin_user_path %></h3>
+  <h3>Email: <a href="mailto: <%= @user.email %>"><%= @user.email %></a> | <%= link_to "Edit", edit_admin_user_path %></h3>
+  <p><button type="button" id="show-user-projects-btn" user-id="<%=@user.id%>">Show Projects</button></p>
+</div>
 
-<div id="project-container">
+<div class="last-container">
   <div id='user-project-index'></div>
 </div>
 
-<div id="delete-user">
+<div class="delete-button">
   <%= form_for @user, url: admin_user_path, method: :delete do |f| %>
     <%= f.submit "Delete user" %><br/>
   <% end %>
