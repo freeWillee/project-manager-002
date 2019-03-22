@@ -1,76 +1,147 @@
 $(function() {
     // document ready
-    listenForMoreClick()
+    bindClickHandlers()
 });
 
-function listenForMoreClick() {
-    $(".js-more").each(function(num, el) {
-        $(el).on('click', function(event){
-            event.preventDefault();
-            const projectId = parseInt($(el).attr("data-id"));
-            const projectDiv = $(`.project-data[data-id=${projectId}]`)
-            if (projectDiv.text() === "") {
-                getProject(projectId)
-                $(el).text("Show Less")
-            } else {
-                $(projectDiv).text("")
-                $(el).text("Show More")
-            }
-        })
+const bindClickHandlers = () => {
+    // listen for "Projects Dashboard link click" in nav bar
+    $('.all_projects').on('click', (e) => {
+        e.preventDefault()
+        // Update URL
+        history.pushState(null, null, "/admin/projects")
+        //EXTRACT OUT FETCH STATEMENTS --> USE getPost()
+        showProjectIndex()
     })
-}
 
-function getProject(projectId) {
-    const baseUrl = 'http://localhost:3000/admin/projects/' + projectId
-    // make a request to the server - api -> project list
-    $.ajax({
-        url:baseUrl,
-        method: 'GET',
-        dataType: 'json'
-    }).done( function(data) {
-        // console.logging data to test
-            console.log("this is the data returned: ", data)
-        let theProject = new Project(data)
-            console.log("this is the created project JS object: ", theProject)
-
-        let projectHTML = theProject.postHTML()
-            console.log("this is the HTML to append: ", projectHTML)
-
-            $(`.project-data[data-id=${projectId}]`).html(projectHTML)
+    // listen for show project link on projects index page
+    $(document).on('click', '.show_link', function(e) {
+        e.preventDefault()
+        
+        let id = $(this).attr('data-id')
+        history.pushState(null, null, `/admin/projects/${id}`)
+        showProject(id)
     })
-}
 
-class Project {
-    constructor(obj) {
-        this.id = obj.id
-        this.name = obj.name
-        this.deadline = obj.deadline
-        this.tasks = obj.tasks.map(e => new Task(e))
-        this.users = obj.users.map(e => new User(e))
-    }
-}
-
-Project.prototype.postHTML = function () {
-    return (`
-        <div style="text-align: left;">
-            <p><strong>Tasks:</strong></p>
-            ${listHTML(this.tasks)}
-            <p><strong>Team:</strong>:</p>
-            ${listHTML(this.users)}
-        </div>
-    `)
-}
-
-function listHTML(objCollection) {
-    let listHTML = "<ul>"
-    for (const obj of objCollection) {
-        if (obj.constructor.name === "Task") {
-        listHTML += `<li><a href="/admin/tasks/${obj.id}">${obj.title}</a></li>`
-        } else if (obj.constructor.name === "User") {
-            listHTML += `<li><a href="/admin/users/${obj.id}">${obj.username}</a></li>`
+    // listen for show more link on projects index page
+    $(document).on('click', ".js-show-more", function(e) {
+        e.preventDefault();
+        const projectId = parseInt($(this).attr("data-id"));
+        const projectDiv = $(`.more-project-overview-${projectId}`)
+        if (projectDiv.text() === "") {
+            showTaskSummary(projectId)
+            $(this).text.innerText = "Show Less"
+        } else {
+            $(projectDiv).text("")
+            $(this).text.innerText = "Show More"
         }
-    }
-    listHTML +="</ul>"
-
-    return listHTML
+    })
 }
+
+const showProjectIndex = () => {
+    fetch('/admin/projects.json')  // this returns a promise.. use .then() to do stuff after...
+    .then(res => res.json())
+    .then(projects => {
+        $('#app-container').html("")
+        // repaint the DOM
+        let pageHTML =  '<div class="section-container"><h1>Project List</h1></div>'
+        let counter = 1
+        projects.forEach(project => {
+            let newProject = new Project(project)
+            pageHTML += newProject.overview(counter)
+            counter++
+        })
+        $('#app-container').append(pageHTML)
+    })
+}
+
+const showProject = function(id) {
+    fetch(`/admin/projects/${id}.json`)
+    .then(res => res.json())
+    .then(project => {
+        let jsProject = new Project(project)
+        let showProjectHTML = jsProject.show()
+        $('#app-container').html("")
+        $('#app-container').append(showProjectHTML)
+    })
+}
+
+const showTaskSummary = function(projectId) {
+    fetch(`/admin/projects/${projectId}.json`)
+    .then(res => res.json())
+    .then(project => {
+        let jsProject = new Project(project)
+        let tasks = jsProject.tasks
+        let tasksHTML = '<div class="project-index-tasks"><h4>Tasks: </h4>'
+        let counter = 1
+        tasks.forEach(task => {
+            tasksHTML += `
+                <a href="/admin/tasks/${task.id}"><p>${counter}. ${task.title}</p></a>
+            `
+            counter ++
+        })
+        tasksHTML += "</div>"
+        $(`.more-project-overview-${projectId}`).append(tasksHTML)
+    })
+}
+
+// Constructor function / no class
+function Project(project) {
+    this.id = project.id
+    this.name = project.name
+    this.deadline = project.deadline
+    this.users = project.users.map(user => new User(user))
+    this.tasks = project.tasks.map(task => new Task(task))
+}
+
+// Create some prototypes
+Project.prototype.overview = function(counter){
+    let projectHTML = `
+        <div class="section-container">
+            <a href="/admin/projects/${this.id}" data-id="${this.id}" class="show_link"><h4>${counter}. ${this.name}</h4></a>
+            <a href="#" class="js-show-more" data-id="${this.id}"><p>Show more</p></a>
+            <div class="more-project-overview-${this.id}"></div>
+        </div>
+    `
+    return projectHTML
+}   
+
+Project.prototype.show = function(){
+    let tasks = this.tasks
+    let users = this.users
+    let showProjectHTML = `
+        <div class="section-container">
+            <h3>Project Name: ${this.name}</h3>
+            <h4><a href="/admin/projects/${this.id}/edit">Edit Project</a></h4>
+            <h3>Deadline: ${new Date(this.deadline).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</h3>
+        </div>
+        <div class="section-container">
+            <h3>Project Tasks</h3>
+            <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Assignee</th>
+                    <th>Percent Complete</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            `
+    tasks.forEach(task => {
+        const taskUser = users.find( user => user.id === task.user_id)
+        showProjectHTML += `
+            <tr>
+                <td><a href="/admin/tasks/${task.id}">${task.title}</a></td>
+                <td>${taskUser.username} (<a href="mailto: ${taskUser.email}">email</a>)</td>
+                <td>${task.percent_complete}</td>
+                <td><a href="/admin/tasks/${task.id}/edit">Edit</a></td>
+            </tr>
+        ` 
+    })
+    showProjectHTML += `
+        </tbody>
+        </table>
+        </div>
+    `
+    return showProjectHTML
+}   
