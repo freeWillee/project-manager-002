@@ -29,10 +29,10 @@ const bindClickHandlers = () => {
         const projectDiv = $(`.more-project-overview-${projectId}`)
         if (projectDiv.text() === "") {
             showTaskSummary(projectId)
-            $(this).text.innerText = "Show Less"
+            this.innerText = "Show Less"
         } else {
             $(projectDiv).text("")
-            $(this).text.innerText = "Show More"
+            this.innerText = "Show More"
         }
     })
 }
