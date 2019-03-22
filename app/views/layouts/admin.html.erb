@@ -16,7 +16,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <%= link_to "Projects Dashboard", admin_projects_path, class: "navbar-brand" %>
+          <%= link_to "Projects Dashboard", admin_projects_path, class: "navbar-brand all_projects" %>
           <%= link_to "All Users", admin_users_path, class: "navbar-brand" %>
           <%= link_to "All Tasks", admin_tasks_path, class: "navbar-brand" %>          
           <% if !Project.all.empty? %>
@@ -31,18 +31,20 @@
     <div class="center">
       <!-- <div class="info"> -->
         <div class="container">
-        <h2>You are logged in as an Administrator</h2>
-        <!-- show error messages if any -->
-        <% flash.each do |key, value| %>
-          <% if value.class == Array %>
-            <% value.each do |message|%>
-              <%= content_tag :div, message %>
-            <% end%>
-          <% else %>
-            <%= content_tag :div, value, class: "flash #{key}" %>
-          <% end %>
-        <% end %> <!-- flash errors end -->
-        <%= yield %>
+          <h2>You are logged in as an Administrator</h2>
+          <!-- show error messages if any -->
+          <% flash.each do |key, value| %>
+            <% if value.class == Array %>
+              <% value.each do |message|%>
+                <%= content_tag :div, message %>
+              <% end%>
+            <% else %>
+              <%= content_tag :div, value, class: "flash #{key}" %>
+            <% end %>
+            <% end %> <!-- flash errors end -->
+            <div id="app-container">
+              <%= yield %>
+            </div>
         </div>
       <!-- </div> -->
     </div>
