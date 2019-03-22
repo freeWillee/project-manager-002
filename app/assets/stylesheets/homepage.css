@@ -14,9 +14,13 @@ html {
     text-align: left;
 }
 
-.project-summary-show, .project-tasks-show, .project-users-show {
+.section-container, #app-container {
     text-align: left;
     border-bottom: solid black 1px;
+    padding-bottom: 30px;
+}
+.last-container {
+    text-align: left;
     padding-bottom: 30px;
 }
 
