@@ -4,19 +4,19 @@
 <div id="js-next-project">
   <a href="" data-id="<%= @project.id %>">Next Project >> </a>
 </div>
-<div class="project-summary-show">
+<div class="section-container">
   <h3>Project Name: <%= @project.name %></h3> 
   <h4><%= link_to "Edit Project", edit_admin_project_path(@project) %></h4>
   <h3>Deadline: <%= @project.days_remaining %> days (<%= @project.weeks_remaining %> weeks)</h3>
 </div>
 
-<div class="project-tasks-show">
+<div class="section-container">
   <h3>Project Tasks</h3>
   <% if @project.tasks.empty? %>
     <p>There are currently no users assigned to this project</p>
   <% else %>
     <!-- Filter control -->
-    <h5>Filter tasks by users:</h5>
+    <h5>Filter tasks by:</h5>
     <%= form_tag(admin_project_path(@project), method: "get") do %>
       <%= select_tag "filter_user_id", options_from_collection_for_select(@users.uniq, "id", "username"), include_blank: true %>
       <%= submit_tag "Filter" %>
@@ -38,7 +38,7 @@
   <% end %>
 </div>
 
-<div class="project-users-show">
+<div class="last-container">
 <!-- Show users assigned to project -->
   <h3>Assigned Users</h3>
     <% if @project.users.empty? %>
