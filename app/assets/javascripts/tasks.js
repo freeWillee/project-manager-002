@@ -1,10 +1,9 @@
-class Task {
-    constructor(obj) {
-        this.id = obj.id
-        this.title = obj.title
-        this.content = obj.content
-        this.percent_complete = obj.percent_complete
-        this.user_id = obj.user_id
-        this.project_id = obj.project_id
-    }
+// Constructor function / no class
+function Task (task) {
+    this.id = task.id
+    this.title = task.title
+    this.content = task.content
+    this.percent_complete = task.percent_complete
+    this.project_id = task.project_id
+    this.user_id = task.user_id
 }
