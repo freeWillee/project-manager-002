@@ -48,6 +48,61 @@ const bindClickHandlers = () => {
         history.pushState(null, null, `/admin/projects/${id}`)
         getPreviousProject(id)      
     })
+
+    // listen for new task button click
+    $(document).on('click', ".new-task-btn", function(e) {
+        e.preventDefault();
+        if ($(".new-task-form").text() === "") {
+            createNewTaskForm()
+            $(".new-task-btn").text("Hide New Task")
+        } else {
+            $(".new-task-form").text("")
+            $(".new-task-btn").text("New Task")
+        }
+
+        
+    })
+}
+
+const createNewTaskForm = () => {
+    fetch('/admin/users.json')
+    .then(res => res.json())
+    .then(function(users) {
+        let userCollection = []
+        let formHTML = `
+        <h2><strong>New Task</strong></h2>
+        <form action="/admin/tasks" method="post">      
+            <label for="task_user_id">Assignee: </label>
+            <select name="task[user_id]" id="task_user_id">
+        `
+        users.forEach(user => {
+            let newUser = new User(user)
+            userCollection.push(newUser)
+        })
+
+        userCollection.forEach(user => {
+            formHTML += `
+                <option value="${user.id}">${user.username}</option>
+            `
+        })
+
+        formHTML += `
+            </select><br>
+    
+            <label for="task_title">Title</label><br>
+            <input placeholder="Enter a title" class="form-control" type="text" name="task[title]" id="task_title">
+    
+            <label for="task_content">Content</label><br>
+            <textarea placeholder="Task details" class="form-control" name="task[content]" id="task_content"></textarea>
+    
+            <label for="task_percent_complete">Percent complete</label><br>
+            <input placeholder="Enter a number 1-100" class="form-control" type="text" value="0" name="task[percent_complete]" id="task_percent_complete">
+    
+            <input type="submit" name="commit" value="Create Task" data-disable-with="Create Task"><br>
+            </form>
+        `
+        $('.new-task-form').append(formHTML)
+    })
 }
 
 const showProjectIndex = () => {
@@ -180,6 +235,9 @@ Project.prototype.show = function(){
     showProjectHTML += `
         </tbody>
         </table>
+        <br>
+        <p><button class="new-task-btn" data-id="${this.id}">New Task</button></p>
+        <div class="new-task-form"></div>
         </div>
     `
     return showProjectHTML

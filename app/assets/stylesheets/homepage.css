@@ -14,17 +14,27 @@ html {
     text-align: left;
 }
 
+.new-task-form {
+    padding: 30px;
+}
+
 .project-nav-div {
     margin-top: 30px;
     margin-bottom: 30px;
     text-align: center
 }
 
-.section-container, #app-container {
+.section-container{
     text-align: left;
     border-bottom: solid black 1px;
     padding-bottom: 30px;
 }
+
+.app-container {
+    text-align: left;
+    padding-bottom: 30px;
+}
+
 .last-container {
     text-align: left;
     padding-bottom: 30px;
