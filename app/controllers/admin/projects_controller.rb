@@ -20,6 +20,18 @@ class Admin::ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def next
+    @project = Project.find(params[:id])
+    @next_project = @project.next
+    render json: @next_project
+  end
+
+  def previous
+    @project = Project.find(params[:id])
+    @previous_project = @project.previous
+    render json: @previous_project
+  end
+
   def create
     @project = Project.new(project_params)
     if !@project.save

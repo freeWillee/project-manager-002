@@ -35,6 +35,19 @@ const bindClickHandlers = () => {
             this.innerText = "Show More"
         }
     })
+    // listen for next button click on project show page
+    $(document).on('click', ".next-project-btn", function() {
+        let id = parseInt($(this).attr('data-id'))
+        history.pushState(null, null, `/admin/projects/${id}`)
+        getNextProject(id)        
+    })
+
+    // listen for previous button click on project show page
+    $(document).on('click', ".previous-project-btn", function() {
+        let id = parseInt($(this).attr('data-id'))
+        history.pushState(null, null, `/admin/projects/${id}`)
+        getPreviousProject(id)      
+    })
 }
 
 const showProjectIndex = () => {
@@ -84,6 +97,28 @@ const showTaskSummary = function(projectId) {
     })
 }
 
+const getNextProject = function(projectId) {
+    fetch(`/admin/projects/${projectId}/next`)
+    .then(res => res.json())
+    .then(project => {
+        let jsProject = new Project(project)
+        let showProjectHTML = jsProject.show()
+        $('#app-container').html("")
+        $('#app-container').append(showProjectHTML)
+    })
+}
+
+const getPreviousProject = function(projectId) {
+    fetch(`/admin/projects/${projectId}/previous`)
+    .then(res => res.json())
+    .then(project => {
+        let jsProject = new Project(project)
+        let showProjectHTML = jsProject.show()
+        $('#app-container').html("")
+        $('#app-container').append(showProjectHTML)
+    })
+}
+
 // Constructor function / no class
 function Project(project) {
     this.id = project.id
@@ -109,6 +144,10 @@ Project.prototype.show = function(){
     let tasks = this.tasks
     let users = this.users
     let showProjectHTML = `
+        <div class="project-nav-div">
+            <button class="previous-project-btn" data-id="${this.id}"><< Previous Project</button>
+            <button class="next-project-btn" data-id="${this.id}">Next Project >></button>        
+        </div>
         <div class="section-container">
             <h3>Project Name: ${this.name}</h3>
             <h4><a href="/admin/projects/${this.id}/edit">Edit Project</a></h4>

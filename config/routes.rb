@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get '/login' => "sessions#new"
   post '/sessions' => "sessions#create"
   get '/logout' => "sessions#destroy"
+  get '/admin/projects/:id/next', to: 'admin/projects#next'
+  get '/admin/projects/:id/previous', to: 'admin/projects#previous'
 
   #Projects
   resources :projects, only: [:show] do 
