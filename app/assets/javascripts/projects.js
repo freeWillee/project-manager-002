@@ -53,25 +53,49 @@ const bindClickHandlers = () => {
     $(document).on('click', ".new-task-btn", function(e) {
         e.preventDefault();
         if ($(".new-task-form").text() === "") {
-            createNewTaskForm()
+            let project_id = $(this).data('id')
+            createNewTaskForm(project_id)
             $(".new-task-btn").text("Hide New Task")
         } else {
             $(".new-task-form").text("")
             $(".new-task-btn").text("New Task")
         }
-
-        
     })
+
+    // listen for submit new task click
+        $(document).on('submit', "#ajax-new-form", function(e) {
+            e.preventDefault();
+            let url = this.action
+            let data = $(this).serialize()
+            let posting = $.post(url, data)
+
+            posting.done(function(data){
+                let task = data;
+                console.log(data)
+                let newTaskRowHTML = `
+                <tr>
+                    <td><a href="/admin/tasks/${data["id"]}">${data["title"]}</a></td>
+                    <td>${data["user"]["username"]} (<a href="mailto: ${data["user"]["email"]}">email</a>)</td>
+                    <td>${data["percent_complete"]}</td>
+                    <td><a href="/admin/tasks/${data["id"]}/edit">Edit</a></td>
+                </tr>
+                `
+                $('.task-table-body').append(newTaskRowHTML)
+            })
+        })
 }
 
-const createNewTaskForm = () => {
+const createNewTaskForm = (project_id) => {
+    let authenticity_token = $('meta[name=csrf-token]').attr('content')
+
     fetch('/admin/users.json')
     .then(res => res.json())
     .then(function(users) {
         let userCollection = []
         let formHTML = `
         <h2><strong>New Task</strong></h2>
-        <form action="/admin/tasks" method="post">      
+        <form action="/admin/tasks" method="post" id="ajax-new-form">      
+            <input type="hidden" name="authenticity_token" value="${authenticity_token}">
             <label for="task_user_id">Assignee: </label>
             <select name="task[user_id]" id="task_user_id">
         `
@@ -90,17 +114,18 @@ const createNewTaskForm = () => {
             </select><br>
     
             <label for="task_title">Title</label><br>
-            <input placeholder="Enter a title" class="form-control" type="text" name="task[title]" id="task_title">
-    
+            <input placeholder="Enter a title" class="form-control" type="text" name="task[title]" id="task_title"><br>
+            <input type="hidden" name="task[project_id]" value="${project_id}">
             <label for="task_content">Content</label><br>
-            <textarea placeholder="Task details" class="form-control" name="task[content]" id="task_content"></textarea>
+            <textarea placeholder="Task details" class="form-control" name="task[content]" id="task_content"></textarea><br>
     
             <label for="task_percent_complete">Percent complete</label><br>
-            <input placeholder="Enter a number 1-100" class="form-control" type="text" value="0" name="task[percent_complete]" id="task_percent_complete">
+            <input placeholder="Enter a number 1-100" class="form-control" type="text" value="0" name="task[percent_complete]" id="task_percent_complete"><br>
     
-            <input type="submit" name="commit" value="Create Task" data-disable-with="Create Task"><br>
+            <input type="submit" name="commit" value="Create Task" ><br>
             </form>
         `
+        // append new form to DOM
         $('.new-task-form').append(formHTML)
     })
 }
@@ -219,7 +244,7 @@ Project.prototype.show = function(){
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="task-table-body">
             `
     tasks.forEach(task => {
         const taskUser = users.find( user => user.id === task.user_id)

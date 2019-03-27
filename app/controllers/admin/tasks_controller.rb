@@ -13,6 +13,11 @@ class Admin::TasksController < ApplicationController
 
   def show
     @task = Task.find(params[:id])
+
+    respond_to do |f|
+      f.html {render :index}
+      f.json { render json: @task }
+    end
     
   end
 
@@ -33,7 +38,7 @@ class Admin::TasksController < ApplicationController
     else
       flash[:success] = "You have successfully created a task titled, #{@task.title}."
 
-      redirect_to admin_project_path(@task.project)
+      render json: @task, status: 201
     end
   end
 
