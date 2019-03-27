@@ -15,7 +15,7 @@ class Admin::TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     respond_to do |f|
-      f.html {render :index}
+      f.html {render :show}
       f.json { render json: @task }
     end
     
