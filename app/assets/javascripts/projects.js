@@ -7,9 +7,7 @@ const bindClickHandlers = () => {
     // listen for "Projects Dashboard link click" in nav bar
     $('.all_projects').on('click', (e) => {
         e.preventDefault()
-        // Update URL
         history.pushState(null, null, "/admin/projects")
-        //EXTRACT OUT FETCH STATEMENTS --> USE getPost()
         showProjectIndex()
     })
 
@@ -17,9 +15,10 @@ const bindClickHandlers = () => {
     $(document).on('click', '.show_link', function(e) {
         e.preventDefault()
         
-        let id = $(this).attr('data-id')
+        let id = $(this).attr('data-id')        
+        let fetchURL = `/admin/projects/${id}.json`
+        showProject(fetchURL)
         history.pushState(null, null, `/admin/projects/${id}`)
-        showProject(id)
     })
 
     // listen for show more link on projects index page
@@ -37,16 +36,16 @@ const bindClickHandlers = () => {
     })
     // listen for next button click on project show page
     $(document).on('click', ".next-project-btn", function() {
-        let id = parseInt($(this).attr('data-id'))
-        history.pushState(null, null, `/admin/projects/${id}`)
-        getNextProject(id)        
+        let projectId = parseInt($(this).attr('data-id'))
+        let fetchURL = `/admin/projects/${projectId}/next`
+        showProject(fetchURL)   
     })
 
     // listen for previous button click on project show page
     $(document).on('click', ".previous-project-btn", function() {
-        let id = parseInt($(this).attr('data-id'))
-        history.pushState(null, null, `/admin/projects/${id}`)
-        getPreviousProject(id)      
+        let projectId = parseInt($(this).attr('data-id'))
+        let fetchURL = `/admin/projects/${projectId}/previous`
+        showProject(fetchURL)      
     })
 
     // listen for new task button click
@@ -74,10 +73,10 @@ const bindClickHandlers = () => {
                 console.log(data)
                 let newTaskRowHTML = `
                 <tr>
-                    <td><a href="/admin/tasks/${data["id"]}">${data["title"]}</a></td>
-                    <td>${data["user"]["username"]} (<a href="mailto: ${data["user"]["email"]}">email</a>)</td>
-                    <td>${data["percent_complete"]}</td>
-                    <td><a href="/admin/tasks/${data["id"]}/edit">Edit</a></td>
+                    <td><a href="/admin/tasks/${task["id"]}">${task["title"]}</a></td>
+                    <td>${task["user"]["username"]} (<a href="mailto: ${task["user"]["email"]}">email</a>)</td>
+                    <td>${task["percent_complete"]}</td>
+                    <td><a href="/admin/tasks/${task["id"]}/edit">Edit</a></td>
                 </tr>
                 `
                 $('.task-table-body').append(newTaskRowHTML)
@@ -147,15 +146,15 @@ const showProjectIndex = () => {
     })
 }
 
-const showProject = function(id) {
-    fetch(`/admin/projects/${id}.json`)
-    .then(res => res.json())
-    .then(project => {
-        let jsProject = new Project(project)
-        let showProjectHTML = jsProject.show()
-        $('#app-container').html("")
-        $('#app-container').append(showProjectHTML)
-    })
+const showProject = function(fetchURL) {
+    $.get(fetchURL, null, "json")
+        .done(project => {
+            console.log(project)
+            let jsProject = new Project(project)
+            let showProjectHTML = jsProject.show()
+            $('#app-container').html("")
+            $('#app-container').append(showProjectHTML)
+        })
 }
 
 const showTaskSummary = function(projectId) {
@@ -174,28 +173,6 @@ const showTaskSummary = function(projectId) {
         })
         tasksHTML += "</div>"
         $(`.more-project-overview-${projectId}`).append(tasksHTML)
-    })
-}
-
-const getNextProject = function(projectId) {
-    fetch(`/admin/projects/${projectId}/next`)
-    .then(res => res.json())
-    .then(project => {
-        let jsProject = new Project(project)
-        let showProjectHTML = jsProject.show()
-        $('#app-container').html("")
-        $('#app-container').append(showProjectHTML)
-    })
-}
-
-const getPreviousProject = function(projectId) {
-    fetch(`/admin/projects/${projectId}/previous`)
-    .then(res => res.json())
-    .then(project => {
-        let jsProject = new Project(project)
-        let showProjectHTML = jsProject.show()
-        $('#app-container').html("")
-        $('#app-container').append(showProjectHTML)
     })
 }
 
